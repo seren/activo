@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Exercise"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView2"
+            android:id="@+id/textView1"
             android:layout_gravity="left" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="Rounds"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView2"
+            android:id="@+id/textView3"
             android:layout_gravity="left" />
 
         <Spinner
@@ -90,7 +90,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AppName"
+        android:text="@string/app_name"
         android:id="@+id/button"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
