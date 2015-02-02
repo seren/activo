@@ -6,9 +6,9 @@
              android:shape="ring"
              android:thicknessRatio="7.0">
   <gradient
-             android:startColor="#fb0000"
-             android:endColor="#00FF00"
-             android:centerColor="#fbf400"
+             android:startColor="#ff2dc0df"
+             android:endColor="#ffb7d4db"
+             android:centerColor="#ff6efbd3"
              android:type="sweep" />   
 </shape>
 </item>   
