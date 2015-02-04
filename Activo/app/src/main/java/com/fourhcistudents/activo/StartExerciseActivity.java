@@ -16,12 +16,9 @@ import android.support.v7.app.ActionBarActivity;
 
 public class StartExerciseActivity extends ActionBarActivity {
 
-        // private static long countDownInterval = 1000;
+
     private CountDownTimer countDownTimer;
 
-
-    //private CountDownTimer model;
-    //long millisInFuture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

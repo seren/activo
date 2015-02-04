@@ -7,4 +7,6 @@
     <string name="title_activity_main">main</string>
     <string name="loading">Loading...</string>
     <string name="instructions">Jump!!</string>
+    <string name="timeleftvalue">00:30</string>
+
 </resources>
