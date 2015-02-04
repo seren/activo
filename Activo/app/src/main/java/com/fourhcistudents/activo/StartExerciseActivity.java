@@ -16,11 +16,7 @@ import android.support.v7.app.ActionBarActivity;
 
 public class StartExerciseActivity extends ActionBarActivity {
 
-    ProgressBar progressBar;
-    CountDownTimer exerciseCountDownTimer;
-    private int timeLeft;
-
-    // private static long countDownInterval = 1000;
+        // private static long countDownInterval = 1000;
     //private CountDownTimer cdt;
     //private CountDownTimer model;
     //long millisInFuture;
@@ -50,24 +46,26 @@ public class StartExerciseActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
-    public void setProgress(int progress) {
-        progress = 100;
+    public void startTimer(final int minuti) {
+        countDownTimer = new CountDownTimer(60 * minuti * 1000, 500) {
 
-        final int actualTime = progress * 1000;
-        progressBar.setProgress(progress);
-
-        exerciseCountDownTimer = new CountDownTimer(actualTime, 1000) {
-            int totalTime = actualTime;
-            @Override
             public void onTick(long millisUntilFinished) {
-                progress = (int) ( millisUntilFinished/ (double)totalTime * 100);
-                progressBar.setProgress(progress);
+            long seconds = millisUntilFinished/1000;
+            int barVal = (barMax) - ((int)(seconds/60*100)+(int)(seconds%60));
+
+            progressbar.setProgress(barVal);
+            textTimer.setText(String.format("%02d", seconds/60) + ":" + String.format("%02d"), seconds%60));)
+
             }
 
             @Override
             public void onFinish() {
-                progress =0;
-                progressBar.setProgress(progress);
+                if(textTimer.getText().equals("00:00")){
+                    textTimer.setText("STOP");
+                }
+                else{
+                    textTimer.setText("2:00");
+                }
             }
         }.start();
 
