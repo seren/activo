@@ -79,7 +79,8 @@
             android:layout_gravity="center"
             android:textColor="#345803"
             android:textSize="12sp"
-            android:typeface="sans" />
+            android:typeface="sans"
+            android:text="@string/timeleftvalue"/>
     </FrameLayout>
 
 

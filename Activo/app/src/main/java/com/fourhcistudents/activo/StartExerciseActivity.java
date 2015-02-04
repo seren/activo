@@ -25,7 +25,7 @@ public class StartExerciseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startexercise);}
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressbar);
-        TextView textTimer = (TextView)findViewById(R.id.time_left_value);
+        TextView time_left_value = (TextView)findViewById(R.id.time_left_value);
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -37,21 +37,19 @@ public class StartExerciseActivity extends ActionBarActivity {
 
             public void onTick(long millisUntilFinished) {
                 long seconds = millisUntilFinished/1000;
-
                 int barVal = (barMax) - ((int)(seconds/60*100)+(int)(seconds%60));
-
                 progressBar.setProgress(barVal);
-                textTimer.setText(String.valueOf(millisUntilFinished) );
+                time_left_value.setText(String.valueOf(millisUntilFinished) );
 
             }
 
             @Override
             public void onFinish() {
-                if(textTimer.getText().equals("00:00")){
-                    textTimer.setText("STOP");
+                if(time_left_value.getText().equals("00:00")){
+                    time_left_value.setText("STOP");
                 }
                 else{
-                    textTimer.setText("2:00");
+                    time_left_value.setText("2:00");
                 }
             }
         }.start();
