@@ -17,30 +17,19 @@ import android.support.v7.app.ActionBarActivity;
 public class StartExerciseActivity extends ActionBarActivity {
 
         // private static long countDownInterval = 1000;
-    //private CountDownTimer cdt;
+    private CountDownTimer countDownTimer;
+
+
     //private CountDownTimer model;
     //long millisInFuture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startexercise);
+        setContentView(R.layout.activity_startexercise);}
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressbar);
+        TextView textTimer = (TextView)findViewById(R.id.time_left_value);
 
-        TextView timeLeft = (TextView) findViewById(R.id.time_left_value);
-        timeLeft.setText("" + timeLeft / 1000);
-
-
-        progressBar = (ProgressBar)findViewById(R.id.progressbar);
-// Pause Button
-        Button pausebtn = (Button) findViewById(R.id.pause_btn);
-        pausebtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onPause() {
-                cdt.cancel();
-                super.onPause();
-            }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
@@ -50,11 +39,12 @@ public class StartExerciseActivity extends ActionBarActivity {
         countDownTimer = new CountDownTimer(60 * minuti * 1000, 500) {
 
             public void onTick(long millisUntilFinished) {
-            long seconds = millisUntilFinished/1000;
-            int barVal = (barMax) - ((int)(seconds/60*100)+(int)(seconds%60));
+                long seconds = millisUntilFinished/1000;
 
-            progressbar.setProgress(barVal);
-            textTimer.setText(String.format("%02d", seconds/60) + ":" + String.format("%02d"), seconds%60));)
+                int barVal = (barMax) - ((int)(seconds/60*100)+(int)(seconds%60));
+
+                progressBar.setProgress(barVal);
+                textTimer.setText(String.valueOf(millisUntilFinished) );
 
             }
 
