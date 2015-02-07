@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class HomeActivity extends ActionBarActivity {
@@ -34,5 +35,12 @@ public class HomeActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void startExercise(View arg0) {
+        // Move to the next view!
+        Intent i = new Intent(HomeActivity.this, StartExerciseActivity.class);
+        startActivity(i);
+    }
+
 }
 
