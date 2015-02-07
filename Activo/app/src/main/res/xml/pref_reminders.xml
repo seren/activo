@@ -11,7 +11,7 @@
             android:defaultValue="true" />
 
         <EditTextPreference
-            android:dependency="reminders_frequency"
+            android:dependency="reminders_daily"
             android:key="reminder_frequency"
             android:title="@string/pref_title_reminder_frequency"
             android:defaultValue="@string/pref_default_reminder_frequency_minutes" />
