@@ -6,16 +6,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
 
 
-public class HomeActivity extends ActionBarActivity {
+public class HomeActivity extends ActionBarActivity{
+
+    private Switch oralswitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        oralswitch = (Switch) findViewById(R.id.oralswitch);
+        oralswitch.setChecked(true);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,6 +45,7 @@ public class HomeActivity extends ActionBarActivity {
         Intent i = new Intent(HomeActivity.this, StartExerciseActivity.class);
         startActivity(i);
     }
+
 
 }
 
