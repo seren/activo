@@ -1,11 +1,15 @@
 package com.fourhcistudents.activo;
 
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.content.Intent;
+import android.support.v7.widget.Toolbar;
+import android.net.Uri;
+import android.support.v7.app.ActionBarActivity;
+
 
 
 public class SituationChooserActivity extends ActionBarActivity {
@@ -14,30 +18,37 @@ public class SituationChooserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situation_chooser);
+        // I've added this for those who like to have the shadow below the actionbar
+
+
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_situation_chooser, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        String url=null;
+        switch(item.getItemId())
+        {
+            case R.id.action_settings:
+                url="https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
+                break;
+            case R.id.situation_chooser:
+                url="https://github.com/AndroidDeveloperLB";
+                break;
+
         }
-
-        return super.onOptionsItemSelected(item);
+        if(url==null)
+            return true;
+        final Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY|Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        return true;
     }
+
 
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -65,5 +76,6 @@ public class SituationChooserActivity extends ActionBarActivity {
     public void setSilentMode(View view) {
 
     }
+
 
 }

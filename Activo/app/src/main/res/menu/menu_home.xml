@@ -5,6 +5,10 @@
         android:id="@+id/action_settings"
         android:title="@string/action_settings" />
 
+    <item
+        android:id="@+id/situation_chooser"
+        android:title="@string/situation_chooser">
+    </item>
 
 
 </menu>

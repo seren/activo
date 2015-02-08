@@ -36,6 +36,9 @@ public class HomeActivity extends ActionBarActivity{
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
+            case R.id.situation_chooser:
+                startActivity(new Intent(this, SituationChooserActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -47,10 +50,6 @@ public class HomeActivity extends ActionBarActivity{
         startActivity(i);
     }
 
-    public void chooseSituation(View arg0) {
-        Intent i = new Intent(HomeActivity.this, SituationChooserActivity.class);
-        startActivity(i);
-    }
 
 
 }

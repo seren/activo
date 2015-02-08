@@ -49,11 +49,30 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
 
     public boolean onOptionsItemSelected(final MenuItem item)
     {
-        int id = item.getItemId();
-        if (id == android.R.id.home)
-            NavUtils.navigateUpFromSameTask(this);
+        String url=null;
+        switch(item.getItemId())
+        {
+            case R.id.action_settings:
+                url="https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
+                break;
+            case R.id.situation_chooser:
+                url="https://github.com/AndroidDeveloperLB";
+                break;
+
+        }
+        if(url==null)
+            return true;
+        final Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY|Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
         return true;
     }
+       // int id = item.getItemId();
+        //if (id == android.R.id.home)
+          //  NavUtils.navigateUpFromSameTask(this);
+        //return true;
+    //}
    
 
 

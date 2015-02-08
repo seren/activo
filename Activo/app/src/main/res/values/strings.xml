@@ -8,5 +8,5 @@
     <string name="loading">Loading...</string>
     <string name="instructions">Jump!!</string>
     <string name="title_activity_situation_chooser">SituationChooserActivity</string>
-
+    <string name="situation_chooser">Situation Selection</string>
 </resources>
