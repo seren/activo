@@ -16,7 +16,9 @@
         android:id="@+id/startButton"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/start_button"
+        android:onClick="startExercise"/>
 
 
     <LinearLayout

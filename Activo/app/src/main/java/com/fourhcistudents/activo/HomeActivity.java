@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
+import android.view.View;
 
 
 public class HomeActivity extends ActionBarActivity {
@@ -14,9 +16,13 @@ public class HomeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_home);
 
 
-
     }
 
+    public void startExercise(View arg0) {
+        // Move to the next view!
+        Intent i = new Intent(HomeActivity.this, StartExerciseActivity.class);
+        startActivity(i);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
