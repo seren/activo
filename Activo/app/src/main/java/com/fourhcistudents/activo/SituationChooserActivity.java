@@ -7,8 +7,13 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.app.NavUtils;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
+
+
+
+
 
 
 
@@ -40,14 +45,13 @@ public class SituationChooserActivity extends ActionBarActivity {
                 break;
 
         }
-        if(url==null)
-            return true;
-        final Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY|Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);
+
+        int id = item.getItemId();
+        if (id == android.R.id.home)
+        NavUtils.navigateUpFromSameTask(this);
         return true;
     }
+
 
 
     public void onRadioButtonClicked(View view) {
