@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
 
 
 public class SituationChooserActivity extends ActionBarActivity {
@@ -36,4 +38,24 @@ public class SituationChooserActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.situation_radioButton_in_meeting:
+                if (checked)
+// set pref to meeting
+                    break;
+            case R.id.situation_radioButton_on_call:
+                if (checked)
+// set pref to meeting
+                    break;
+            default:
+// set pref to normal
+        }
+    }
+
 }

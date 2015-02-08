@@ -68,30 +68,40 @@
             android:id="@+id/textView2"
             android:paddingBottom="10dp" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="In Meeting"
-            android:id="@+id/situation_radioButton_in_meeting"
-            android:layout_gravity="right"
-            android:paddingBottom="10dp" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="On Call"
-            android:id="@+id/situation_radioButton_on_call"
-            android:layout_gravity="right"
-            android:paddingBottom="10dp" />
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="None"
-            android:id="@+id/situation_radioButton_normal"
-            android:layout_gravity="right"
-            android:paddingBottom="10dp" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In Meeting"
+                android:id="@+id/situation_radioButton_in_meeting"
+                android:layout_gravity="right"
+                android:onClick="onRadioButtonClicked"
+                android:paddingBottom="10dp" />
 
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On Call"
+                android:id="@+id/situation_radioButton_on_call"
+                android:layout_gravity="right"
+                android:onClick="onRadioButtonClicked"
+                android:paddingBottom="10dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="None"
+                android:id="@+id/situation_radioButton_normal"
+                android:layout_gravity="right"
+                android:onClick="onRadioButtonClicked"
+                android:paddingBottom="10dp" />
+
+        </RadioGroup>
     </LinearLayout>
 
 </RelativeLayout>
