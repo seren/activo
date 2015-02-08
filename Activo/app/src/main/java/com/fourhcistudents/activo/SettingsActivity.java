@@ -2,8 +2,12 @@ package com.fourhcistudents.activo;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.content.Intent;
+import java.util.List;
+import android.support.v7.widget.Toolbar;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -11,8 +15,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
-
-import java.util.List;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -25,36 +27,58 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends ActionBarPreferenceActivity {
     /**
      * Determines whether to always show the simplified settings UI, where
      * settings are presented in a single list. When false, settings are shown
      * as a master/detail two-pane view on tablets. When true, a single pane is
      * shown on tablets.
      */
-    private static final boolean ALWAYS_SIMPLE_PREFS = false;
+    //private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setupActionBar();
+        final Toolbar toolbar=getToolbar();
+        toolbar.setTitle(R.string.action_settings);
+        getMenuInflater().inflate(R.menu.menu_home,toolbar.getMenu());
+        // I've added this for those who like to have the shadow below the actionbar
+        setEnabledActionBarShadow(true);
+    }
+
+    public boolean onOptionsItemSelected(final MenuItem item)
+    {
+        int id = item.getItemId();
+        if (id == android.R.id.home)
+            NavUtils.navigateUpFromSameTask(this);
+        return true;
+    }
+   
+
+
+    @Override
+    protected int getPreferencesXmlId()
+    {
+        return R.xml.pref_exercise;
+
     }
 
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void setupActionBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+   // private void setupActionBar() {
+      //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // Show the Up button in the action bar.
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
+           // getActionBar().setDisplayHomeAsUpEnabled(true);
+        //}
+    //}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
+
+    //public boolean onOptionsItemSelected(MenuItem item) {
+      //  int id = item.getItemId();
+        //if (id == android.R.id.home) {
             // This ID represents the Home or Up button. In the case of this
             // activity, the Up button is shown. Use NavUtils to allow users
             // to navigate up one level in the application structure. For
@@ -64,11 +88,11 @@ public class SettingsActivity extends PreferenceActivity {
             //
             // TODO: If Settings has multiple levels, Up should navigate up
             // that hierarchy.
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+          //  NavUtils.navigateUpFromSameTask(this);
+            //return true;
+        //}
+        //return super.onOptionsItemSelected(item);
+    //}
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -118,7 +142,7 @@ public class SettingsActivity extends PreferenceActivity {
 
     /**
      * Determines whether the simplified settings UI should be shown. This is
-     * true if this is forced via {@link #ALWAYS_SIMPLE_PREFS}, or the device
+     * true if this is forced via , or the device
      * doesn't have newer APIs like {@link PreferenceFragment}, or the device
      * doesn't have an extra-large screen. In these cases, a single-pane
      * "simplified" settings UI should be shown.
