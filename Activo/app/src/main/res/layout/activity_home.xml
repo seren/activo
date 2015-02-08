@@ -112,4 +112,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Situation Chooser"
+        android:id="@+id/button3"
+        android:layout_above="@+id/button"
+        android:onClick="chooseSituation"
+        android:singleLine="false"
+        android:layout_centerHorizontal="true"
+        android:textStyle="italic" />
+
 </RelativeLayout>

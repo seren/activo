@@ -7,7 +7,6 @@
     <string name="title_activity_main">main</string>
     <string name="loading">Loading...</string>
     <string name="instructions">Jump!!</string>
+    <string name="title_activity_situation_chooser">SituationChooserActivity</string>
 
 </resources>
-
-  

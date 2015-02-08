@@ -46,6 +46,11 @@ public class HomeActivity extends ActionBarActivity{
         startActivity(i);
     }
 
+    public void chooseSituation(View arg0) {
+        Intent i = new Intent(HomeActivity.this, SituationChooserActivity.class);
+        startActivity(i);
+    }
+
 
 }
 

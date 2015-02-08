@@ -16,6 +16,7 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,7 +40,6 @@
                 android:value=".HomeActivity" />
         </activity>
 
-
         <!-- StartExercise activity -->
 
         <activity
@@ -48,8 +48,14 @@
             android:parentActivityName=".HomeActivity" >
             android:screenOrientation="portrait">
         </activity>
-
+        <activity
+            android:name=".SituationChooserActivity"
+            android:label="@string/title_activity_situation_chooser"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fourhcistudents.activo.HomeActivity" />
+        </activity>
     </application>
-
 
 </manifest>
