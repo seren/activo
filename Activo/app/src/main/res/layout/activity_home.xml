@@ -73,19 +73,25 @@
         android:id="@+id/row3"
         android:layout_below="@+id/row2">
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Oral Instructor"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView2"
-            android:layout_gravity="left" />
+            android:layout_gravity="left" />-->
 
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Switch"
-            android:id="@+id/switch1" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:text="Oral Instructor"
+            android:textOn="YES"
+            android:textOff="NO"
+            android:id="@+id/oralswitch" />
+
 
     </LinearLayout>
 
@@ -105,5 +111,17 @@
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Situation Chooser"
+        android:id="@+id/button3"
+        android:layout_above="@+id/button"
+        android:onClick="chooseSituation"
+        android:singleLine="false"
+        android:layout_centerHorizontal="true"
+        android:textStyle="italic" />
 
 </RelativeLayout>

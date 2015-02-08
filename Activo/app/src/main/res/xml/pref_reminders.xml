@@ -1,0 +1,21 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_header_reminders">
+
+        <CheckBoxPreference
+            android:key="reminders_daily"
+            android:title="@string/pref_title_reminders_daily"
+            android:summary="@string/pref_summary_reminders_daily"
+            android:defaultValue="true" />
+
+        <EditTextPreference
+            android:dependency="reminders_daily"
+            android:key="reminder_frequency"
+            android:title="@string/pref_title_reminder_frequency"
+            android:defaultValue="@string/pref_default_reminder_frequency_minutes" />
+
+     </PreferenceCategory>
+
+</PreferenceScreen>
