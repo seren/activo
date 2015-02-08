@@ -18,10 +18,6 @@ public class SituationChooserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situation_chooser);
-
-        // I've added this for those who like to have the shadow below the actionbar
-
-
     }
 
 
@@ -35,22 +31,19 @@ public class SituationChooserActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-       // String url=null;
-        //switch(item.getItemId())
-        //{
-          //  case R.id.action_settings:
-            //    url="https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
-              //  break;
-            //case R.id.situation_chooser:
-              //  url="https://github.com/AndroidDeveloperLB";
-                //break;
 
-        //}
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            case R.id.situation_chooser:
+                startActivity(new Intent(this, SituationChooserActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
-        int id = item.getItemId();
-        if (id == android.R.id.home)
-        NavUtils.navigateUpFromSameTask(this);
-        return true;
+
     }
 
 

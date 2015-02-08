@@ -47,17 +47,18 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
         setEnabledActionBarShadow(true);
     }
 
-    public boolean onOptionsItemSelected(final MenuItem item)
+    public boolean onOptionsItemSelected(MenuItem item)
     {
         String url=null;
         switch(item.getItemId())
         {
             case R.id.action_settings:
-                url="https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
-                break;
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+
             case R.id.situation_chooser:
-                url="https://github.com/AndroidDeveloperLB";
-                break;
+                startActivity(new Intent(this, SituationChooserActivity.class));
+                return true;
 
         }
         if(url==null)
