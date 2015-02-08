@@ -29,25 +29,7 @@
             android:id="@+id/situation_switch_pocket"
             android:layout_gravity="end"
             android:layout_column="14"
-            android:paddingBottom="10dp" />
-
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="In Meeting"
-            android:id="@+id/situation_switch_meeting"
-            android:layout_gravity="end"
-            android:layout_column="14"
-            android:paddingBottom="10dp" />
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="On Call"
-            android:id="@+id/situation_switch_call"
-            android:layout_gravity="end"
-            android:layout_column="14"
+            android:onClick="setInPocket"
             android:paddingBottom="10dp" />
 
 
@@ -58,6 +40,7 @@
             android:id="@+id/situation_switch_silent_mode"
             android:layout_gravity="end"
             android:layout_column="14"
+            android:onClick="setSilentMode"
             android:paddingBottom="10dp" />
 
         <TextView
