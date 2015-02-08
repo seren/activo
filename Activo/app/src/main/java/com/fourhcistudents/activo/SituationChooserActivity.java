@@ -3,6 +3,7 @@ package com.fourhcistudents.activo;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Menu;
 import android.view.View;
 import android.widget.RadioButton;
 import android.content.Intent;
@@ -11,40 +12,40 @@ import android.support.v4.app.NavUtils;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 
-
-
-
-
-
-
 public class SituationChooserActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situation_chooser);
+
         // I've added this for those who like to have the shadow below the actionbar
 
 
     }
 
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        String url=null;
-        switch(item.getItemId())
-        {
-            case R.id.action_settings:
-                url="https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
-                break;
-            case R.id.situation_chooser:
-                url="https://github.com/AndroidDeveloperLB";
-                break;
+       // String url=null;
+        //switch(item.getItemId())
+        //{
+          //  case R.id.action_settings:
+            //    url="https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
+              //  break;
+            //case R.id.situation_chooser:
+              //  url="https://github.com/AndroidDeveloperLB";
+                //break;
 
-        }
+        //}
 
         int id = item.getItemId();
         if (id == android.R.id.home)
