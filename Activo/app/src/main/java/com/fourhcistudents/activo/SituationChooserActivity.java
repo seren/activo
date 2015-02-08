@@ -58,4 +58,12 @@ public class SituationChooserActivity extends ActionBarActivity {
         }
     }
 
+    public void setInPocket(View view) {
+
+    }
+
+    public void setSilentMode(View view) {
+
+    }
+
 }
