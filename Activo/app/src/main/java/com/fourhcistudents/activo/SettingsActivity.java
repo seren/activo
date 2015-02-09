@@ -39,6 +39,7 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setDefaultPrefs(this);
 //        setupActionBar();
         final Toolbar toolbar=getToolbar();
         toolbar.setTitle(R.string.action_settings);
@@ -141,7 +142,6 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
 //        fakeHeader.setTitle(R.string.pref_header_exercises);
 //        getPreferenceScreen().addPreference(fakeHeader);
         addPreferencesFromResource(R.xml.pref_exercise);
-
 //        fakeHeader = new PreferenceCategory(this);
 //        fakeHeader.setTitle(R.string.pref_header_data_sync);
 //        getPreferenceScreen().addPreference(fakeHeader);
@@ -246,5 +246,11 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), ""));
+    }
+
+    private static void setDefaultPrefs(PreferenceActivity context) {
+        PreferenceManager.setDefaultValues(context, R.xml.pref_exercise, false);
+        PreferenceManager.setDefaultValues(context, R.xml.pref_reminders, false);
+        PreferenceManager.setDefaultValues(context, R.xml.pref_instruction, false);
     }
 }
