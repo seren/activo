@@ -34,14 +34,10 @@
             android:text="Exercise"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView1"
-            android:layout_gravity="left" />
+            android:layout_gravity="left"
+            android:onClick="bodypart_view" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView" />
+
 
     </LinearLayout>
 

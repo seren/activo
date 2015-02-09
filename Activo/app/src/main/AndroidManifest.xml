@@ -57,6 +57,13 @@
                 android:value="com.fourhcistudents.activo.HomeActivity" />
         </activity>
 
+        <activity
+            android:name=".BodyPartChooserActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".HomeActivity" >
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>
