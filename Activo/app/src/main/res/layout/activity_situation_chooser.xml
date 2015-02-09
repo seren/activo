@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="In Pocket"
-            android:id="@+id/situation_switch_pocket"
+            android:id="@+id/situation_switch_phone_location"
             android:layout_gravity="end"
             android:layout_column="14"
             android:onClick="setInPocket"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Phone Silent Mode"
-            android:id="@+id/situation_switch_silent_mode"
+            android:id="@+id/situation_switch_phone_mode"
             android:layout_gravity="end"
             android:layout_column="14"
             android:onClick="setSilentMode"
@@ -53,6 +53,7 @@
 
 
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/situation_radioGroup_user_activity"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -78,7 +79,7 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="None"
+                android:text="Normal"
                 android:id="@+id/situation_radioButton_normal"
                 android:layout_gravity="right"
                 android:onClick="onRadioButtonClicked"
