@@ -1,4 +1,4 @@
-package com.example.davidjanmercado.voicerecognition;
+package com.fourhcistudents.activo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import com.fourhcistudents.activo.R;
+
+public class VoiceActivity extends Activity {
 
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
@@ -24,7 +26,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_startexercise);
 
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);

@@ -72,6 +72,36 @@
         android:layout_alignTop="@+id/pause_btn"
         android:layout_alignParentEnd="true" />
 
+    <ImageButton
+        android:id="@+id/btnSpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/micicon"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/textView4"
+        android:layout_toEndOf="@+id/pause_btn"
+        android:layout_above="@+id/exercise" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/tap_on_mic"
+        android:textSize="15dp"
+        android:textStyle="normal"
+        android:id="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/txtSpeechInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/white"
+        android:textSize="26dp"
+        android:textStyle="normal"
+        android:layout_toStartOf="@+id/instructions" />
 
 
 </RelativeLayout>
