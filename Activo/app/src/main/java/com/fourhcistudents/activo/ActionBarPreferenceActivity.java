@@ -37,7 +37,7 @@ public abstract class ActionBarPreferenceActivity extends PreferenceActivity
             parent.removeView(_shadowView);
             _shadowView=null;
         }
-        addPreferencesFromResource(getPreferencesXmlId());
+//        addPreferencesFromResource(getPreferencesXmlId());
         _toolbar.setClickable(true);
         _toolbar.setNavigationIcon(getResIdFromAttribute(this,R.attr.homeAsUpIndicator));
         _toolbar.setNavigationOnClickListener(new View.OnClickListener()
