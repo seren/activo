@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/tap_on_mic"
-            android:textColor="@color/white"
             android:textSize="15dp"
             android:textStyle="normal" />
     </LinearLayout>

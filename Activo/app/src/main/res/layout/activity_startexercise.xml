@@ -96,12 +96,12 @@
         android:id="@+id/txtSpeechInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:textColor="@color/white"
-        android:textSize="26dp"
+        android:layout_alignParentTop="false"
+        android:textSize="20sp"
         android:textStyle="normal"
-        android:layout_toStartOf="@+id/instructions" />
+        android:layout_alignEnd="@id/btnSpeak"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true" />
 
 
 </RelativeLayout>
