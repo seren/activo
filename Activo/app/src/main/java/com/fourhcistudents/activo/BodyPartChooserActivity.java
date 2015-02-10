@@ -5,29 +5,21 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Switch;
 
 
-import javax.net.ssl.HostnameVerifier;
+/**
+ * Created by Panagiota on 9/2/2015.
+ */
+public class BodyPartChooserActivity extends ActionBarActivity {
 
 
-public class HomeActivity extends ActionBarActivity{
-
-    private Switch oralswitch;
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        oralswitch = (Switch) findViewById(R.id.oralswitch);
-        oralswitch.setChecked(true);
+        setContentView(R.layout.activity_bodyparts);
 
-    }
 
+
+}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -50,19 +42,5 @@ public class HomeActivity extends ActionBarActivity{
         }
     }
 
-    public void startExercise(View arg0) {
-        // Move to the next view!
-        Intent i = new Intent(HomeActivity.this, StartExerciseActivity.class);
-        startActivity(i);
-    }
-
-
-        public void bodypart_view (View arg0){
-            // Move to the next view!
-            Intent i = new Intent(HomeActivity.this, BodyPartChooserActivity.class);
-            startActivity(i);
-        }
-
 
 }
-
