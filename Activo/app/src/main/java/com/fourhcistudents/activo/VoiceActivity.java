@@ -1,24 +1,23 @@
 package com.fourhcistudents.activo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
+import com.fourhcistudents.activo.R;
 
-
-public class StartExerciseActivity extends ActionBarActivity {
+public class VoiceActivity extends Activity {
 
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
@@ -27,9 +26,6 @@ public class StartExerciseActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startexercise);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_startexercise);
 
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
@@ -43,34 +39,7 @@ public class StartExerciseActivity extends ActionBarActivity {
             }
         });
 
-
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            case R.id.situation_chooser:
-                startActivity(new Intent(this, SituationChooserActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-
-    }
-
-
-
 
     /**
      * Showing google speech input dialog
@@ -133,12 +102,11 @@ public class StartExerciseActivity extends ActionBarActivity {
 
     }
 
-
-
-
-
-
-
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
 }

@@ -1,0 +1,35 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/pref_title_exercise_type">
+
+        <ListPreference
+            android:key="exercise_type_preference"
+            android:title="@string/pref_title_exercise_type"
+            android:entries="@array/pref_entries_exercise_type"
+            android:entryValues="@array/pref_entryvalues_exercise_type"
+            android:defaultValue="@string/pref_default_exercise_type"
+            android:dialogTitle="@string/pref_dialog_title_exercise_type" />
+
+        <EditTextPreference
+            android:key="excercise_time_preference"
+            android:title="@string/pref_title_exercise_time"
+            android:defaultValue="@string/pref_default_exercise_time"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+        <EditTextPreference
+            android:key="rest_time_preference"
+            android:title="@string/pref_title_rest_time"
+            android:defaultValue="@string/pref_default_rest_time"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

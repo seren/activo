@@ -1,5 +1,6 @@
 package com.fourhcistudents.activo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
@@ -9,11 +10,11 @@ import android.support.v7.app.ActionBarActivity;
  * The initial loading screen. Loads for three seconds and then launches the application.
  */
 
-public class LoadAppActivity extends ActionBarActivity {
+public class LoadAppActivity extends Activity {
     /**
      * The load screen timer.
      */
-    private static int LOAD_TIME_OUT = 3000;
+    private static int LOAD_TIME_OUT = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
