@@ -68,24 +68,21 @@ public class SituationChooserActivity extends ActionBarActivity {
         switch(view.getId()) {
             case R.id.situation_radioButton_in_meeting:
                 if (checked) {
-                    msg("in meeting");
                     button = "situation_radioButton_in_meeting";
                 }
                 break;
             case R.id.situation_radioButton_on_call:
                 if (checked) {
-                    msg("on call");
                     button = "situation_radioButton_on_call";
                 }
                 break;
             default:
-                msg("normal");
                 button = "situation_radioButton_normal";
                 break;
         }
         e.putString("user_activity", button);
         e.putInt("situation_radioButton_user_activity_checked", buttonID);
-        e.commit();
+        e.apply();
     }
 
     // save to prefs
@@ -93,12 +90,15 @@ public class SituationChooserActivity extends ActionBarActivity {
         boolean on = ((Switch) view).isChecked();
         SharedPreferences.Editor e = sp.edit();
         e.putBoolean("phone_location", on);
-        e.commit();
-        if (on) {
-            msg("in pocket");
-        } else {
-            msg("out of pocket");
-        }
+        e.apply();
+    }
+
+    // save to prefs
+    public void setManualSituationsEnabled(View view) {
+        boolean on = ((Switch) view).isChecked();
+        SharedPreferences.Editor e = sp.edit();
+        e.putBoolean("manual_situations_enabled", on);
+        e.apply();
     }
 
     // save to prefs
@@ -106,12 +106,7 @@ public class SituationChooserActivity extends ActionBarActivity {
         boolean on = ((Switch) view).isChecked();
         SharedPreferences.Editor e = sp.edit();
         e.putBoolean("phone_mode", on);
-        e.commit();
-        if (on) {
-            msg("silent mode on");
-        } else {
-            msg("silent mode off");
-        }
+        e.apply();
     }
 
     // create toasts
@@ -133,9 +128,11 @@ public class SituationChooserActivity extends ActionBarActivity {
         // Set switch states
         Switch s_location = (Switch) findViewById(R.id.situation_switch_phone_location);
         Switch s_mode = (Switch) findViewById(R.id.situation_switch_phone_mode);
+        Switch s_enabled = (Switch) findViewById(R.id.manual_situations_enabled);
 
         s_location.setChecked(sp.getBoolean("situation_switch_phone_location", false));
         s_mode.setChecked(sp.getBoolean("situation_switch_phone_mode", false));
+        s_enabled.setChecked(sp.getBoolean("manual_situations_enabled", false));
     }
 }
 
