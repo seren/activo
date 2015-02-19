@@ -16,4 +16,7 @@
     <string name="upperbody_caption">Upper Body</string>
     <string name="corebody_caption">Core Body</string>
     <string name="lowerbody_caption">Lower Body</string>
+
+    <string name="notification_subtitle">Counting your steps</string>
+
 </resources>

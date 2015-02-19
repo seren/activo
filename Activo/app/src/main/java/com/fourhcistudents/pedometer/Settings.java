@@ -16,10 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.project.fourhci.pedometer;
+package com.fourhcistudents.pedometer;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.fourhcistudents.activo.R;
 
 /**
  * Activity for Pedometer settings.
@@ -32,6 +34,6 @@ public class Settings extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        addPreferencesFromResource(R.xml.preferences);
+//        addPreferencesFromResource(R.xml.preferences);
     }
 }

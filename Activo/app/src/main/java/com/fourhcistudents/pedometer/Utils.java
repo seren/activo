@@ -1,4 +1,4 @@
-package com.project.fourhci.pedometer;
+package com.fourhcistudents.pedometer;
 
 import java.util.Locale;
 

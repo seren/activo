@@ -200,7 +200,7 @@ public class StepCounterActivity extends Activity {
         /* We indicate here that we will be using the layout defined in main.xml
          * which has been translated into R.java.
          */
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         
         /* ============================================================== */
         /* PRACTICUM 3.
@@ -246,24 +246,24 @@ public class StepCounterActivity extends Activity {
         /* ============================================================== */
         
         /* ============================================================== */
-        /* Drop down menu */
-        detectorSpinner = (Spinner) findViewById(R.id.detectorList);
-        ArrayAdapter<CharSequence> detectorAdapter = ArrayAdapter.createFromResource(this, R.array.detector_array, android.R.layout.simple_spinner_item);
-        detectorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        detectorSpinner.setAdapter(detectorAdapter);
-        detectorSpinner.setOnItemSelectedListener(new OnItemSelectedListener () {
-
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int pos, long id) {
-				String detectorName = parent.getItemAtPosition(pos).toString();
-				Util.get().setStepDetector(detectorName);
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub	
-			}
-        	
-        });
+//        /* Drop down menu */
+//        detectorSpinner = (Spinner) findViewById(R.id.detectorList);
+//        ArrayAdapter<CharSequence> detectorAdapter = ArrayAdapter.createFromResource(this, R.array.detector_array, android.R.layout.simple_spinner_item);
+//        detectorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        detectorSpinner.setAdapter(detectorAdapter);
+//        detectorSpinner.setOnItemSelectedListener(new OnItemSelectedListener () {
+//
+//			public void onItemSelected(AdapterView<?> parent, View view,
+//					int pos, long id) {
+//				String detectorName = parent.getItemAtPosition(pos).toString();
+//				Util.get().setStepDetector(detectorName);
+//			}
+//
+//			public void onNothingSelected(AdapterView<?> arg0) {
+//				// TODO Auto-generated method stub
+//			}
+//
+//        });
 
 
       	/* This starts the update thread to asynchronously update the

@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.project.fourhci.pedometer;
+package com.fourhcistudents.pedometer;
 
 
 import android.app.Notification;
@@ -38,19 +38,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fourhcistudents.activo.R;
 
 
-/**
- * This is an example of implementing an application service that runs locally
- * in the same process as the application.  The {@link StepServiceController}
- * and {@link StepServiceBinding} classes show how to interact with the
- * service.
- *
- * <p>Notice the use of the {@link NotificationManager} when interesting things
- * happen in the service.  This is generally how background services should
- * interact with the user, rather than doing something more disruptive such as
- * calling startActivity().
- */
 public class StepService extends Service {
 	private static final String TAG = "com.project.fourci.pedometer.StepService";
     private SharedPreferences mSettings;
@@ -122,7 +112,7 @@ public class StepService extends Service {
         reloadSettings();
 
         // Tell the user we started.
-        Toast.makeText(this, getText(R.string.started), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, getText(R.string.started), Toast.LENGTH_SHORT).show();
     }
     
     @Override
@@ -155,7 +145,7 @@ public class StepService extends Service {
         mSensorManager.unregisterListener(mStepDetector);
 
         // Tell the user we stopped.
-        Toast.makeText(this, getText(R.string.stopped), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, getText(R.string.stopped), Toast.LENGTH_SHORT).show();
     }
 
     private void registerDetector() {

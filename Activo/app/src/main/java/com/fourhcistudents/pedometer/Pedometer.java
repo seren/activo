@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.project.fourhci.pedometer;
+package com.fourhcistudents.pedometer;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -33,6 +33,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.fourhcistudents.activo.R;
 
 
 public class Pedometer extends Activity {
@@ -64,7 +65,7 @@ public class Pedometer extends Activity {
         mStepValue = 0;
        
         
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         
         mUtils = Utils.getInstance();
         
@@ -82,7 +83,7 @@ public class Pedometer extends Activity {
         super.onResume();
         
         mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-        mPedometerSettings = new PedometerSettings(mSettings);
+        mPedometerSettings = new com.fourhcistudents.pedometer.PedometerSettings(mSettings);
         
         // Read from preferences if the service was running on the last onPause
         mIsRunning = mPedometerSettings.isServiceRunning();
@@ -98,7 +99,7 @@ public class Pedometer extends Activity {
         
         mPedometerSettings.clearServiceRunning();
 
-        mStepValueView     = (TextView) findViewById(R.id.step_value);
+//        mStepValueView     = (TextView) findViewById(R.id.step_value);
     }
        
 
@@ -210,27 +211,27 @@ public class Pedometer extends Activity {
     
     /* Creates the menu items */
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.clear();
-        if (mIsRunning) {
-            menu.add(0, MENU_PAUSE, 0, R.string.pause)
-            .setIcon(android.R.drawable.ic_media_pause)
-            .setShortcut('1', 'p');
-        }
-        else {
-            menu.add(0, MENU_RESUME, 0, R.string.resume)
-            .setIcon(android.R.drawable.ic_media_play)
-            .setShortcut('1', 'p');
-        }
-        menu.add(0, MENU_RESET, 0, R.string.reset)
-        .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
-        .setShortcut('2', 'r');
-        menu.add(0, MENU_SETTINGS, 0, R.string.settings)
-        .setIcon(android.R.drawable.ic_menu_preferences)
-        .setShortcut('8', 's')
-        .setIntent(new Intent(this, Settings.class));
-        menu.add(0, MENU_QUIT, 0, R.string.quit)
-        .setIcon(android.R.drawable.ic_lock_power_off)
-        .setShortcut('9', 'q');
+//        menu.clear();
+//        if (mIsRunning) {
+//            menu.add(0, MENU_PAUSE, 0, R.string.pause)
+//            .setIcon(android.R.drawable.ic_media_pause)
+//            .setShortcut('1', 'p');
+//        }
+//        else {
+//            menu.add(0, MENU_RESUME, 0, R.string.resume)
+//            .setIcon(android.R.drawable.ic_media_play)
+//            .setShortcut('1', 'p');
+//        }
+//        menu.add(0, MENU_RESET, 0, R.string.reset)
+//        .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+//        .setShortcut('2', 'r');
+//        menu.add(0, MENU_SETTINGS, 0, R.string.settings)
+//        .setIcon(android.R.drawable.ic_menu_preferences)
+//        .setShortcut('8', 's')
+//        .setIntent(new Intent(this, Settings.class));
+//        menu.add(0, MENU_QUIT, 0, R.string.quit)
+//        .setIcon(android.R.drawable.ic_lock_power_off)
+//        .setShortcut('9', 'q');
         return true;
     }
 

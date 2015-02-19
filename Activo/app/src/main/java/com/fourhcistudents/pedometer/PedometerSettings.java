@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.project.fourhci.pedometer;
+package com.fourhcistudents.pedometer;
 
 import android.content.SharedPreferences;
 
