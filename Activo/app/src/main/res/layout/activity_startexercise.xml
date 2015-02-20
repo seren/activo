@@ -22,13 +22,11 @@
         android:layout_below="@+id/time_left_value"
         android:layout_toEndOf="@+id/time_left_value" />
 
-
-
     <ImageView
         android:id="@+id/exercise"
         android:layout_width="200dp"
         android:layout_height="150dp"
-        android:src="@drawable/jump"
+        android:src="@drawable/exercise1"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
@@ -53,24 +51,48 @@
         android:layout_below="@+id/exercise"
         android:layout_centerHorizontal="true" />
 
-
+    <Button
+        android:id="@+id/play_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/playbutton"
+        android:layout_marginBottom="51dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnSpeak" />
 
     <Button
         android:id="@+id/pause_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/pause_button"
+        android:background="@drawable/pausebutton"
         android:layout_marginBottom="51dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/btnSpeak" />
 
     <Button
         android:id="@+id/next_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/next_button"
-        android:layout_alignTop="@+id/pause_btn"
-        android:layout_alignParentEnd="true" />
+        android:background="@drawable/nextbutton"
+        android:layout_alignBottom="@+id/previous_btn"
+        android:layout_alignTop="@+id/stop_btn"
+        android:layout_alignParentRight="true" />
+
+    <Button
+        android:id="@+id/previous_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/previousbutton"
+        android:layout_alignTop="@+id/play_btn"
+        android:layout_toLeftOf="@+id/exercise" />
+
+    <Button
+        android:id="@+id/stop_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/stopbutton"
+        android:layout_alignTop="@+id/play_btn"
+        android:layout_alignRight="@+id/exercise" />
 
     <ImageButton
         android:id="@+id/btnSpeak"
@@ -79,18 +101,8 @@
         android:background="@null"
         android:src="@drawable/micicon"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/textView4"
-        android:layout_toEndOf="@+id/pause_btn"
-        android:layout_above="@+id/exercise" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/tap_on_mic"
-        android:textSize="15dp"
-        android:textStyle="normal"
-        android:id="@+id/textView4" />
+        android:layout_alignTop="@+id/progressbar"
+        android:layout_alignRight="@+id/instructions" />
 
     <TextView
         android:id="@+id/txtSpeechInput"
