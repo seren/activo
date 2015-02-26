@@ -22,9 +22,7 @@ import android.media.AudioManager;
 public class SituationChooserActivity extends ActionBarActivity {
     private SharedPreferences sp;
     private HashMap<String, String> situationPrefsHash = new HashMap<String, String>();
-    private MediaPlayer mPlay;
-    private AudioManager mAudioManager;
-    private boolean mPhoneIsSilent;
+
 
 
     @Override
@@ -33,10 +31,6 @@ public class SituationChooserActivity extends ActionBarActivity {
         setContentView(R.layout.activity_situation_chooser);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         setDefaults();
-
-        // get info for audio manager
-        mAudioManager = (AudioManager)getSystemService(AUDIO_SERVICE);
-        checkIfPhoneIsSilent();
 
     }
 
@@ -146,25 +140,7 @@ public class SituationChooserActivity extends ActionBarActivity {
         s_enabled.setChecked(sp.getBoolean("manual_situations_enabled", false));
     }
 
-    /**
-     * Check to see the mode of the phone. If the phone is set to silent mode, the app will also be silent.
-     */
-    private void checkIfPhoneIsSilent() {
-        int ringerMode = mAudioManager.getRingerMode();
-        if (ringerMode == AudioManager.RINGER_MODE_SILENT) {
-            mPhoneIsSilent = true;
-            mPlay.pause();
-        } else {
-            mPhoneIsSilent = false;
-            mPlay.start();
-        }
-    }
 
-    @Override
-    public void onPause() {
-        mPlay.pause();
-        super.onPause();
-    }
 
 }
 

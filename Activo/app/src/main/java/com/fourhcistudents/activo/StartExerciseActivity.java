@@ -2,6 +2,7 @@ package com.fourhcistudents.activo;
 
 import android.content.ActivityNotFoundException;
 import android.content.res.TypedArray;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.Menu;
@@ -34,7 +35,8 @@ public class StartExerciseActivity extends ActionBarActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     private MediaPlayer mediaPlayer;
-
+    private AudioManager mAudioManager;
+    private boolean mPhoneIsSilent;
     // Buttons
     private Button nextButton;
     private Button previousButton;
@@ -59,6 +61,10 @@ public class StartExerciseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startexercise);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // get info for audio manager
+        mAudioManager = (AudioManager)getSystemService(AUDIO_SERVICE);
+        checkIfPhoneIsSilent();
 
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
@@ -318,6 +324,26 @@ public class StartExerciseActivity extends ActionBarActivity {
                     }
                 })
                 .show();
+    }
+
+
+    // Check to see the mode of the phone. If the phone is set to silent mode, the app will also be silent.
+     
+    private void checkIfPhoneIsSilent() {
+        int ringerMode = mAudioManager.getRingerMode();
+        if (ringerMode == AudioManager.RINGER_MODE_SILENT) {
+            mPhoneIsSilent = true;
+            mediaPlayer.pause();
+        } else {
+            mPhoneIsSilent = false;
+            mediaPlayer.start();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        mediaPlayer.pause();
+        super.onPause();
     }
 
 }
