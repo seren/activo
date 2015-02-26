@@ -64,7 +64,6 @@ public class StartExerciseActivity extends ActionBarActivity {
 
         // get info for audio manager
         mAudioManager = (AudioManager)getSystemService(AUDIO_SERVICE);
-        checkIfPhoneIsSilent();
 
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
@@ -295,9 +294,9 @@ public class StartExerciseActivity extends ActionBarActivity {
             playButton.setVisibility(View.INVISIBLE);
             if (!isPaused) {
                 getSound();
-                mediaPlayer.start();
+                startPlayer();
             } else {
-                mediaPlayer.start();
+                startPlayer();
                 isPaused = false;
             }
         } else if (s.equals("pause")) {
@@ -329,15 +328,14 @@ public class StartExerciseActivity extends ActionBarActivity {
 
     // Check to see the mode of the phone. If the phone is set to silent mode, the app will also be silent.
      
-    private void checkIfPhoneIsSilent() {
+    private boolean checkIfPhoneIsSilent() {
         int ringerMode = mAudioManager.getRingerMode();
-        if (ringerMode == AudioManager.RINGER_MODE_SILENT) {
+        if ((ringerMode == AudioManager.RINGER_MODE_SILENT) || (ringerMode == AudioManager.RINGER_MODE_VIBRATE)) {
             mPhoneIsSilent = true;
-            mediaPlayer.pause();
         } else {
             mPhoneIsSilent = false;
-            mediaPlayer.start();
         }
+        return mPhoneIsSilent;
     }
 
     @Override
@@ -346,5 +344,11 @@ public class StartExerciseActivity extends ActionBarActivity {
         super.onPause();
     }
 
+
+    private void startPlayer() {
+        if (! checkIfPhoneIsSilent()) {
+            mediaPlayer.start();
+        }
+    }
 }
 
