@@ -1,0 +1,19 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:imi="http://intelligent-multimodal-interaction.org/relations/"
+  xmlns:ex="http://imi.org/"
+  xml:base="http://intelligent-multimodal-interaction.org/concepts/">
+<!-- Blank Node -->
+
+<rdf:Description rdf:about="CurrentSituation">
+	<imi: UserActivity rdf:nodeID="Normal"/>
+	<imi: PhoneLocation rdf:resource="NotInPocket"/>
+	<imi: PhoneMode rdf:resource="SilentMode"/>
+	<ex:hasConstraint rdf:resource="Silent"/>
+	<ex:hasConstraint rdf:resource="SystemVibration"/>
+	<ex:hasConstraint rdf:resource="Text"/>
+	<ex:hasConstraint rdf:resource="Image"/>
+	<ex:hasConstraint rdf:resource="Tap"/>
+	<ex:hasConstraint rdf:resource="NoTap"/>
+	<ex:hasConstraint rdf:resource="Speak"/>
+	<ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description>

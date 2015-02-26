@@ -20,7 +20,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:support-v4:21.0.3'
+    compile files('libs/jena-core-2.12.1.jar')
+    compile files('libs/jena-arq-2.12.1.jar')
+    compile files('libs/jena-iri-1.1.1.jar')
+    compile files('libs/jena-sdb-1.5.1.jar')
+    compile files('libs/jena-tdb-1.1.1.jar')
 }
