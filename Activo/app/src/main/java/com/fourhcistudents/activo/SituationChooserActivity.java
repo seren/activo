@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
@@ -111,6 +112,7 @@ public class SituationChooserActivity extends ActionBarActivity {
 
     // create toasts
     public void msg(String text) {
+        Log.d("SituationChooserActivity",text);
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(context, text, duration).show();

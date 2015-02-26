@@ -9,8 +9,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
-public abstract class PhoneCallReceiver extends BroadcastReceiver {
+public class PhoneCallReceiver extends BroadcastReceiver {
 
     //The receiver will be recreated whenever android feels like it.  We need a static variable to remember data between instantiations
 
@@ -58,6 +59,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
     //Incoming call-  goes from IDLE to RINGING when it rings, to OFFHOOK when it's answered, to IDLE when its hung up
     //Outgoing call-  goes from IDLE to OFFHOOK when it dials out, to IDLE when hung up
     public void onCallStateChanged(Context context, int state, String number) {
+        Log.i("SituationChooserActivity", "-------- STATE CHANGED: " + number);
         if(lastState == state){
             //No change, debounce extras
             return;
