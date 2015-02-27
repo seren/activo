@@ -109,7 +109,7 @@ public class StartExerciseActivity extends ActionBarActivity {
         if (count == 0) {
             previousButton.setVisibility(View.INVISIBLE);       // Hide previous button
             pauseButton.setVisibility(View.INVISIBLE);          // Hide pause button
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);   // Initial sound
+            mediaPlayer = MediaPlayer.create(this, R.raw.jump);   // Initial sound
 
         }
 
@@ -198,13 +198,13 @@ public class StartExerciseActivity extends ActionBarActivity {
         //TODO: real audio
 
         if (count == 0) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);
+            mediaPlayer = MediaPlayer.create(this, R.raw.jump);
         }
         else if (count == 1) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound2);
+            mediaPlayer = MediaPlayer.create(this, R.raw.stretch);
         }
         else if (count == 2) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound3);
+            mediaPlayer = MediaPlayer.create(this, R.raw.run);
         }
     }
 
