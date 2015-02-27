@@ -5,25 +5,39 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.fourhcistudents.pedometer.StepService;
+
+import java.util.ArrayList;
+
 
 public class TimerService extends Service {
     private static final String TAG = "TimerService";
+    private SharedPreferences mSettings;
+    private ActivoSettings mActivoSettings;
+    private SharedPreferences mState;
+    private SharedPreferences.Editor mStateEditor;
+    private Utils mUtils;
+
+    private PowerManager.WakeLock wakeLock;
     private NotificationManager mNM;
+
+
 
     /**
      * Class for clients to access.
      */
-    public class StepBinder extends Binder {
-        StepService getService() {
-            return StepService.this;
+    public class TimerBinder extends Binder {
+        TimerService getService() {
+            return TimerService.this;
         }
     }
 
@@ -48,59 +62,27 @@ public class TimerService extends Service {
 
         mUtils = Utils.getInstance();
         mUtils.setService(this);
-        mUtils.initTTSIfNeeded();
+//        mUtils.initTTSIfNeeded();
 
         acquireWakeLock();
 
-        // Start detecting
-        mStepDetector = new StepDetector();
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        registerDetector();
-
-        // Register our receiver for the ACTION_SCREEN_OFF action. This will make our receiver
-        // code be called whenever the phone enters standby mode.
-        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(mReceiver, filter);
-
-        mStepDisplayer = new StepDisplayer(mActivoSettings, mUtils);
-        mStepDisplayer.setSteps(mSteps = mState.getInt("steps", 0));
-        mStepDisplayer.addListener(mStepListener);
-        mStepDetector.addStepListener(mStepDisplayer);
-
-        mPaceNotifier     = new PaceNotifier(mActivoSettings, mUtils);
-        mPaceNotifier.setPace(mPace = mState.getInt("pace", 0));
-        mPaceNotifier.addListener(mPaceListener);
-        mStepDetector.addStepListener(mPaceNotifier);
-
-        mDistanceNotifier = new DistanceNotifier(mDistanceListener, mActivoSettings, mUtils);
-        mDistanceNotifier.setDistance(mDistance = mState.getFloat("distance", 0));
-        mStepDetector.addStepListener(mDistanceNotifier);
-
-        mSpeedNotifier    = new SpeedNotifier(mSpeedListener,    mActivoSettings, mUtils);
-        mSpeedNotifier.setSpeed(mSpeed = mState.getFloat("speed", 0));
-        mPaceNotifier.addListener(mSpeedNotifier);
-
-        mCaloriesNotifier = new CaloriesNotifier(mCaloriesListener, mActivoSettings, mUtils);
-        mCaloriesNotifier.setCalories(mCalories = mState.getFloat("calories", 0));
-        mStepDetector.addStepListener(mCaloriesNotifier);
-
-        mSpeakingTimer = new SpeakingTimer(mActivoSettings, mUtils);
-        mSpeakingTimer.addListener(mStepDisplayer);
-        mSpeakingTimer.addListener(mPaceNotifier);
-        mSpeakingTimer.addListener(mDistanceNotifier);
-        mSpeakingTimer.addListener(mSpeedNotifier);
-        mSpeakingTimer.addListener(mCaloriesNotifier);
-        mStepDetector.addStepListener(mSpeakingTimer);
-
-        // Used when debugging:
-        // mStepBuzzer = new StepBuzzer(this);
-        // mStepDetector.addStepListener(mStepBuzzer);
-
-        // Start voice
-        reloadSettings();
+//        // Start detecting
+//        mStepDetector = new StepDetector();
+//        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        registerDetector();
+//
+//        // Register our receiver for the ACTION_SCREEN_OFF action. This will make our receiver
+//        // code be called whenever the phone enters standby mode.
+//        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+//        registerReceiver(mReceiver, filter);
+//
+//
+//
+//        // Start voice
+//        reloadSettings();
 
         // Tell the user we started.
-        Toast.makeText(this, getText(R.string.started), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Timer service created", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -142,6 +124,43 @@ public class TimerService extends Service {
 
         mNM.notify(R.string.app_name, notification);
     }
+
+    private void acquireWakeLock() {
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        int wakeFlags;
+//        if (mActivoSettings.wakeAggressively()) {
+//            wakeFlags = PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP;
+//        }
+//        else if (mActivoSettings.keepScreenOn()) {
+//            wakeFlags = PowerManager.SCREEN_DIM_WAKE_LOCK;
+//        }
+//        else {
+            wakeFlags = PowerManager.PARTIAL_WAKE_LOCK;
+//        }
+        wakeLock = pm.newWakeLock(wakeFlags, TAG);
+        wakeLock.acquire();
+    }
+
+
+
+    //-----------------------------------------------------
+    // Listener
+
+    public interface Listener {
+        public void timeExpired();
+    }
+    private ArrayList<Listener> mListeners = new ArrayList<Listener>();
+
+    public void addListener(Listener l) {
+        mListeners.add(l);
+    }
+    public void notifyListeners() {
+//        mUtils.ding();
+        for (Listener listener : mListeners) {
+            listener.timeExpired();
+        }
+    }
+
 
 
 

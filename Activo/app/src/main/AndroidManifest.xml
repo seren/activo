@@ -67,6 +67,11 @@
             android:enabled="true"
             android:exported="false" >
         </service>
+        <service
+            android:name=".TimerService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
