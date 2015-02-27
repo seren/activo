@@ -6,13 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.Switch;
-
-
-import javax.net.ssl.HostnameVerifier;
 
 
 public class HomeActivity extends ActionBarActivity{
@@ -27,6 +21,7 @@ public class HomeActivity extends ActionBarActivity{
         oralswitch.setChecked(true);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -2,18 +2,16 @@ package com.fourhcistudents.activo;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.content.Intent;
-import java.util.List;
-import android.support.v7.widget.Toolbar;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NavUtils;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 /**

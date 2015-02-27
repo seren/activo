@@ -1,10 +1,16 @@
 package com.fourhcistudents.activo;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Handler;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+
+import com.fourhcistudents.pedometer.StepService;
+
 
 /**
  * The initial loading screen. Loads for three seconds and then launches the application.
@@ -35,7 +41,7 @@ public class LoadAppActivity extends Activity {
 
                 // close this activity
                 finish();
-            }
+        }
         }, LOAD_TIME_OUT);
     }
 

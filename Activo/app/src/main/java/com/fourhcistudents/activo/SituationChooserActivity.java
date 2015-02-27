@@ -1,18 +1,19 @@
 package com.fourhcistudents.activo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-import android.content.Intent;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
+
 import java.util.HashMap;
 
 

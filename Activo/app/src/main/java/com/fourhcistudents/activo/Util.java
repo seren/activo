@@ -1,18 +1,17 @@
 package com.fourhcistudents.activo;
 
+import android.hardware.SensorManager;
+import android.os.Environment;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
-import android.hardware.SensorManager;
-import android.os.Environment;
-import android.util.Log;
 
 /*
  * This class is the central storage of all settings that the StepCounterActivity has to keep track of.

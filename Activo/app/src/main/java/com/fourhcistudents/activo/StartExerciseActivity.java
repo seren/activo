@@ -1,30 +1,28 @@
 package com.fourhcistudents.activo;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import android.widget.Button;
-import android.widget.ImageView;
-import android.view.View.OnClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-
-import android.media.MediaPlayer;
 
 public class StartExerciseActivity extends ActionBarActivity {
 

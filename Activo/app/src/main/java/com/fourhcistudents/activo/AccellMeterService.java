@@ -1,12 +1,5 @@
 package com.fourhcistudents.activo;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Calendar;
-
-import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -14,7 +7,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Binder;
-import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
