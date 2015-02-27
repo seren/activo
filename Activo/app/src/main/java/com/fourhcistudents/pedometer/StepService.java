@@ -70,7 +70,7 @@ public class StepService extends Service {
      * IPC.
      */
     public class StepBinder extends Binder {
-        StepService getService() {
+        public StepService getService() {
             return StepService.this;
         }
     }
