@@ -1,0 +1,276 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:imi="http://intelligent-multimodal-interaction.org/relations/"
+  xmlns:ex="http://imi.org/"
+  xml:base="http://intelligent-multimodal-interaction.org/concepts/">
+
+
+<!-- MODALITIES -->
+
+<!-- Input Modality -->
+
+<rdf:Description rdf:about="InputModality">
+  <rdf:type rdf:resource="Modality"/>
+</rdf:Description>
+
+    <!-- GESTURE -->
+
+    <rdf:Description rdf:about="Gesture">
+      <rdf:type rdf:resource="InputModality"/>
+        <imi:constraint-value>Tap</imi:constraint-value>
+        <imi:constraint-value>NoTap</imi:constraint-value>
+    </rdf:Description>
+
+    <!-- SPEECH -->
+
+    <rdf:Description rdf:about="Speech">
+      <rdf:type rdf:resource="InputModality"/>
+        <imi:constraint-value>Speak</imi:constraint-value>
+        <imi:constraint-value>NoSpeak</imi:constraint-value>
+    </rdf:Description>
+
+<!-- End Input Modality -->
+
+<!-- Output Modality -->
+
+<rdf:Description rdf:about="OutputModality">
+  <rdf:type rdf:resource="Modality"/>
+</rdf:Description>
+
+    <!-- SOUND -->
+
+    <rdf:Description rdf:about="Sound">
+      <rdf:type rdf:resource="OutputModality"/>
+        <imi:constraint-value>Silent</imi:constraint-value>
+        <imi:constraint-value>SystemVolume</imi:constraint-value>
+    </rdf:Description>
+
+    <!-- VISUAL -->
+
+    <rdf:Description rdf:about="Visual">
+      <rdf:type rdf:resource="OutputModality"/>
+        <imi:constraint-value>NoVisual</imi:constraint-value>
+        <imi:constraint-value>Text</imi:constraint-value>
+        <imi:constraint-value>Image</imi:constraint-value>
+    </rdf:Description>
+
+    <!-- HAPTICS -->
+
+    <rdf:Description rdf:about="Haptics">
+      <rdf:type rdf:resource="OutputModality"/>
+        <imi:constraint-value>SystemVibration</imi:constraint-value>
+        <imi:constraint-value>NoVibration</imi:constraint-value>
+    </rdf:Description>
+
+<!-- End Output Modality -->
+
+<!-- END MODALITIES -->
+
+
+
+
+
+<!-- USER -->
+
+<!-- User Activity -->
+
+<rdf:Description rdf:about="UserActivity">
+  <rdf:type rdf:resource="User"/>
+</rdf:Description>
+
+      <rdf:Description rdf:about="OnCall">
+        <rdf:type rdf:resource="UserActivity"/>
+      </rdf:Description>
+
+      <rdf:Description rdf:about="InMeeting">
+        <rdf:type rdf:resource="UserActivity"/>
+      </rdf:Description>
+
+      <rdf:Description> <!-- Blank node for everything else -->
+        <rdf:type rdf:resource="UserActivity"/>
+      </rdf:Description>
+
+<!-- End User Activity -->
+
+<!-- Phone Location -->
+
+<rdf:Description rdf:about="PhoneLocation">
+  <rdf:type rdf:resource="User"/>
+</rdf:Description>
+
+      <rdf:Description rdf:about="InPocket">
+        <rdf:type rdf:resource="PhoneLocation"/>
+      </rdf:Description>
+
+      <rdf:Description rdf:about="NotInPocket">
+        <rdf:type rdf:resource="PhoneLocation"/>
+      </rdf:Description>
+
+<!-- End Phone Location -->
+
+<!-- Phone Mode -->
+
+<rdf:Description rdf:about="PhoneMode">
+  <rdf:type rdf:resource="User"/>
+</rdf:Description>
+
+      <rdf:Description rdf:about="SilentMode">
+        <rdf:type rdf:resource="PhoneMode"/>
+      </rdf:Description>
+
+      <rdf:Description rdf:about="NormalMode">
+        <rdf:type rdf:resource="PhoneMode"/>
+      </rdf:Description>
+
+ <!-- End Phone Mode -->
+
+
+ <!-- END USER -->
+
+
+
+
+<!-- SCENARIOS -->
+
+<!-- OnCall -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="OnCall"/>
+  <imi:phoneLocation rdf:resource="Pocket"/>
+  <imi:phoneMode rdf:resource="SilentMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="SystemVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- InMeeting -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="InMeeting"/>
+  <imi:phoneLocation rdf:resource="NotInPocket"/>
+  <imi:phoneMode rdf:resource="NormalMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="NoVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- Blank Node -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:nodeID="Normal"/>
+  <imi:phoneLocation rdf:resource="NotInPocket"/>
+  <imi:phoneMode rdf:resource="SilentMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="SystemVibration"/>
+  <ex:hasConstraint rdf:resource="Text"/>
+  <ex:hasConstraint rdf:resource="Image"/>
+  <ex:hasConstraint rdf:resource="Tap"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="Speak"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- Blank Node -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:nodeID="Normal"/>
+  <imi:phoneLocation rdf:resource="NotInPocket"/>
+  <imi:phoneMode rdf:resource="NormalMode"/>
+  <ex:hasConstraint rdf:resource="SystemVolume"/>
+  <ex:hasConstraint rdf:resource="NoVibration"/>
+  <ex:hasConstraint rdf:resource="Text"/>
+  <ex:hasConstraint rdf:resource="Image"/>
+  <ex:hasConstraint rdf:resource="Tap"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="Speak"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- OnCall -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="OnCall"/>
+  <imi:phoneLocation rdf:resource="Pocket"/>
+  <imi:phoneMode rdf:resource="NormalMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="SystemVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- InMeeting -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="InMeeting"/>
+  <imi:phoneLocation rdf:resource="Pocket"/>
+  <imi:phoneMode rdf:resource="SilentMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="NoVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- InMeeting -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="InMeeting"/>
+  <imi:phoneLocation rdf:resource="Pocket"/>
+  <imi:phoneMode rdf:resource="NormalMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="NoVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- InMeeting -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:nodeID="Normal"/>
+  <imi:phoneLocation rdf:resource="Pocket"/>
+  <imi:phoneMode rdf:resource="SilentMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="SystemVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="Speak"/>
+</rdf:Description><!-- InMeeting -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:nodeID="Normal"/>
+  <imi:phoneLocation rdf:resource="Pocket"/>
+  <imi:phoneMode rdf:resource="NormalMode"/>
+  <ex:hasConstraint rdf:resource="SystemVolume"/>
+  <ex:hasConstraint rdf:resource="SystemVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="Speak"/>
+</rdf:Description><!-- OnCall -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="OnCall"/>
+  <imi:phoneLocation rdf:resource="NotInPocket"/>
+  <imi:phoneMode rdf:resource="SilentMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="NoVibration"/>
+  <ex:hasConstraint rdf:resource="Text"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- OnCall -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="OnCall"/>
+  <imi:phoneLocation rdf:resource="NotInPocket"/>
+  <imi:phoneMode rdf:resource="NormalMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="NoVibration"/>
+  <ex:hasConstraint rdf:resource="Text"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description><!-- InMeeting -->
+
+<rdf:Description rdf:about="CurrentSituation">
+  <imi:userActivity rdf:resource="InMeeting"/>
+  <imi:phoneLocation rdf:resource="NotInPocket"/>
+  <imi:phoneMode rdf:resource="SilentMode"/>
+  <ex:hasConstraint rdf:resource="Silent"/>
+  <ex:hasConstraint rdf:resource="NoVibration"/>
+  <ex:hasConstraint rdf:resource="NoVisual"/>
+  <ex:hasConstraint rdf:resource="NoTap"/>
+  <ex:hasConstraint rdf:resource="NoSpeak"/>
+</rdf:Description>
+
+
+
+</rdf:RDF>
