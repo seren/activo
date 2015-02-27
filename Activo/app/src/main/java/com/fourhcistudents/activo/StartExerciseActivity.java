@@ -79,13 +79,16 @@ public class StartExerciseActivity extends ActionBarActivity {
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.situation_chooser:
                 startActivity(new Intent(this, SituationChooserActivity.class));
+                return true;
+            case R.id.trigger_notification:
+                Toast.makeText(this, "Notifications should trigger", Toast.LENGTH_SHORT).show();
+                MainActivity.sendNotification(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

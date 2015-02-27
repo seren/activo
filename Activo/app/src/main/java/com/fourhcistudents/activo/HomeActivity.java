@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
+import android.widget.Toast;
 
 
 public class HomeActivity extends ActionBarActivity{
@@ -39,6 +40,10 @@ public class HomeActivity extends ActionBarActivity{
                 return true;
             case R.id.situation_chooser:
                 startActivity(new Intent(this, SituationChooserActivity.class));
+                return true;
+            case R.id.trigger_notification:
+                Toast.makeText(this, "Notifications should trigger", Toast.LENGTH_SHORT).show();
+                MainActivity.sendNotification(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

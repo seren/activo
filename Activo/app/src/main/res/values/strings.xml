@@ -9,6 +9,7 @@
     <string name="instructions">Jump!</string>
     <string name="title_activity_situation_chooser">SituationChooserActivity</string>
     <string name="situation_chooser">Situation Selection</string>
+    <string name="trigger_notification">Trigger Notification</string>
     <string name="speech_prompt">Say something&#8230;</string>
     <string name="speech_not_supported">Sorry! Device not supported</string>
     <string name="tap_on_mic">Tap on mic to speak</string>
