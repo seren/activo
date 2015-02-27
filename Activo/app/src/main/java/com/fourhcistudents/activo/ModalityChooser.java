@@ -61,8 +61,7 @@ public class ModalityChooser {
 
 
                 "SELECT ?modality WHERE { \n" +
-//                "?modality rdf:type base:OutputModality .\n" +
-                "rdf:Description "
+                "?modality rdf:type base:OutputModality .\n" +
 //                "CurrentSituation UserActivity ?act .\n" +
 //                "        ?act requires ?modality .\n" +
 //                "CurrentSituation PhoneLocation ?loc .\n" +

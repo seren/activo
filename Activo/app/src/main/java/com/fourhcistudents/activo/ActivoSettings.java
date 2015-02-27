@@ -28,7 +28,7 @@ import com.fourhcistudents.pedometer.Utils;
  */
 public class ActivoSettings {
 
-    SharedPreferences mSettings;
+    private SharedPreferences mSettings;
 
     public ActivoSettings(SharedPreferences settings) {
         mSettings = settings;
