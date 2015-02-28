@@ -110,6 +110,19 @@ public class SituationChooserActivity extends ActionBarActivity {
         SharedPreferences.Editor e = sp.edit();
         e.putBoolean("phone_mode", on);
         e.apply();
+        if (on) {
+            Log.i(TAG, "Phone mode: on");
+        } else {
+            Log.i(TAG, "Phone mode: off");
+        }
+        SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        mSettings.getBoolean("phone_mode", false);
+        Log.i(TAG, "NOW PHONE FROM SETTINGS:");
+        if (on) {
+            Log.i(TAG, "Phone mode: on");
+        } else {
+            Log.i(TAG, "Phone mode: off");
+        }
     }
 
     // create toasts
