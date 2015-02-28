@@ -2,7 +2,6 @@ package com.fourhcistudents.activo;
 
 import android.content.ActivityNotFoundException;
 import android.content.res.TypedArray;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.Menu;
@@ -33,16 +32,16 @@ public class StartExerciseActivity extends ActionBarActivity {
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100;
+    private int audioLength = 0;
 
     private MediaPlayer mediaPlayer;
-    private AudioManager mAudioManager;
-    private boolean mPhoneIsSilent;
+
     // Buttons
     private Button nextButton;
     private Button previousButton;
     private Button playButton;
     private Button pauseButton;
-    private Button stopButton;
+    //private Button stopButton;
 
     // Images
     private ImageView image;
@@ -61,9 +60,6 @@ public class StartExerciseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startexercise);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // get info for audio manager
-        mAudioManager = (AudioManager)getSystemService(AUDIO_SERVICE);
 
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
@@ -108,13 +104,14 @@ public class StartExerciseActivity extends ActionBarActivity {
         previousButton = (Button) findViewById(R.id.previous_btn);
         pauseButton = (Button) findViewById(R.id.pause_btn);
         playButton = (Button) findViewById(R.id.play_btn);
-        stopButton = (Button) findViewById(R.id.stop_btn);
+        //stopButton = (Button) findViewById(R.id.stop_btn);
 
         // First run
         if (count == 0) {
             previousButton.setVisibility(View.INVISIBLE);       // Hide previous button
-            pauseButton.setVisibility(View.INVISIBLE);          // Hide pause button
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);   // Initial sound
+            playButton.setVisibility(View.INVISIBLE);          // Hide play button
+            mediaPlayer = MediaPlayer.create(this, R.raw.jump);   // Initial sound
+            mediaPlayer.start();
 
         }
 
@@ -151,12 +148,12 @@ public class StartExerciseActivity extends ActionBarActivity {
         });
 
         // STOP
-        stopButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exercise("stop");
-            }
-        });
+//        stopButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                exercise("stop");
+//            }
+//        });
 
     }
 
@@ -200,16 +197,14 @@ public class StartExerciseActivity extends ActionBarActivity {
     // Get the right sound to playback
     public void getSound() {
 
-        //TODO: real audio
-
         if (count == 0) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);
+            mediaPlayer = MediaPlayer.create(this, R.raw.jump);
         }
         else if (count == 1) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound2);
+            mediaPlayer = MediaPlayer.create(this, R.raw.stretch);
         }
         else if (count == 2) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound3);
+            mediaPlayer = MediaPlayer.create(this, R.raw.run);
         }
     }
 
@@ -231,10 +226,10 @@ public class StartExerciseActivity extends ActionBarActivity {
             exercise("previous");
         } else if (firstWord.equals("play")) {
             exercise("play");
-        } else if (firstWord.equals("pause")) {
+        } else if (firstWord.equals("pause") || firstWord.equals("boss")) {
             exercise("pause");
-        } else if (firstWord.equals("stop")) {
-            exercise("stop");
+//        } else if (firstWord.equals("stop")) {
+//            exercise("stop");
         } else {
             System.out.println("--NOT RECOGNIZED--");
         }
@@ -292,25 +287,30 @@ public class StartExerciseActivity extends ActionBarActivity {
         } else if (s.equals("play")) {
             pauseButton.setVisibility(View.VISIBLE);
             playButton.setVisibility(View.INVISIBLE);
-            if (!isPaused) {
-                getSound();
-                startPlayer();
-            } else {
-                startPlayer();
-                isPaused = false;
+            if (!mediaPlayer.isPlaying()) { // Do this to ensure that you will not play more than once
+                if (!isPaused) {
+                    getSound();
+                    mediaPlayer.start();
+                } else {
+                    mediaPlayer.seekTo(audioLength);
+                    mediaPlayer.start();
+                    isPaused = false;
+                }
             }
         } else if (s.equals("pause")) {
             playButton.setVisibility(View.VISIBLE);
             pauseButton.setVisibility(View.INVISIBLE);
-            if (mediaPlayer.isPlaying())
+            if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
+                audioLength = mediaPlayer.getCurrentPosition();
+            }
             isPaused = true;
-        } else if (s.equals("stop")) {
-            playButton.setVisibility(View.VISIBLE);
-            pauseButton.setVisibility(View.INVISIBLE);
-            mediaPlayer.stop();
-            isPaused = false;
-        }
+        } //else if (s.equals("stop")) {
+//            playButton.setVisibility(View.VISIBLE);
+//            pauseButton.setVisibility(View.INVISIBLE);
+//            mediaPlayer.stop();
+//            isPaused = false;
+//        }
     }
 
     // Pop up when there's no more previous or next exercise
@@ -325,30 +325,5 @@ public class StartExerciseActivity extends ActionBarActivity {
                 .show();
     }
 
-
-    // Check to see the mode of the phone. If the phone is set to silent mode, the app will also be silent.
-     
-    private boolean checkIfPhoneIsSilent() {
-        int ringerMode = mAudioManager.getRingerMode();
-        if ((ringerMode == AudioManager.RINGER_MODE_SILENT) || (ringerMode == AudioManager.RINGER_MODE_VIBRATE)) {
-            mPhoneIsSilent = true;
-        } else {
-            mPhoneIsSilent = false;
-        }
-        return mPhoneIsSilent;
-    }
-
-    @Override
-    public void onPause() {
-        mediaPlayer.pause();
-        super.onPause();
-    }
-
-
-    private void startPlayer() {
-        if (! checkIfPhoneIsSilent()) {
-            mediaPlayer.start();
-        }
-    }
 }
 

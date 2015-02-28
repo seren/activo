@@ -86,14 +86,6 @@
         android:layout_alignTop="@+id/play_btn"
         android:layout_toLeftOf="@+id/exercise" />
 
-    <Button
-        android:id="@+id/stop_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/stopbutton"
-        android:layout_alignTop="@+id/play_btn"
-        android:layout_alignRight="@+id/exercise" />
-
     <ImageButton
         android:id="@+id/btnSpeak"
         android:layout_width="wrap_content"
