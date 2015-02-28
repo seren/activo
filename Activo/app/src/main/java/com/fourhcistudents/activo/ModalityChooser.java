@@ -72,6 +72,7 @@ public class ModalityChooser {
 //                "FILTER ( ?act  = <"+systemSettings.get("UserActivity")+">) .\n" +
 //                "FILTER ( ?loc  = <"+systemSettings.get("PhoneLocation")+">) .\n" +
 //                "FILTER ( ?mode = <"+systemSettings.get("PhoneMode")+">)\n"
+
         "}");
 
 
