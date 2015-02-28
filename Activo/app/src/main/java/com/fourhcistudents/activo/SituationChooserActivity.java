@@ -21,7 +21,7 @@ import java.util.HashMap;
 public class SituationChooserActivity extends ActionBarActivity {
     private SharedPreferences sp;
     private HashMap<String, String> situationPrefsHash = new HashMap<String, String>();
-
+    private static final String TAG = "Activo";
 
 
     @Override
