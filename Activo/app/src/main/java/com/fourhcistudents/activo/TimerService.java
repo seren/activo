@@ -4,14 +4,16 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,17 +32,19 @@ public class TimerService extends Service {
     private PowerManager.WakeLock wakeLock;
     private NotificationManager mNM;
 
+    private long mInterval;
+    private Handler mHandler;
+
 
 
     /**
      * Class for clients to access.
      */
-    public class TimerBinder extends Binder {
+    public class LocalBinder extends Binder {
         TimerService getService() {
             return TimerService.this;
         }
     }
-
 
 //    public TimerService() {
 //        // get the timeout from the settings
@@ -55,10 +59,10 @@ public class TimerService extends Service {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         showNotification();
 
-        // Load settings
-        mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-        mActivoSettings = new ActivoSettings(mSettings);
-        mState = getSharedPreferences("state", 0);
+//        // Load settings
+//        mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+//        mActivoSettings = new ActivoSettings(mSettings);
+//        mInterval = mSettings.getTimerInterval();
 
         mUtils = Utils.getInstance();
         mUtils.setService(this);
@@ -71,26 +75,17 @@ public class TimerService extends Service {
 //        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 //        registerDetector();
 //
-//        // Register our receiver for the ACTION_SCREEN_OFF action. This will make our receiver
-//        // code be called whenever the phone enters standby mode.
-//        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
-//        registerReceiver(mReceiver, filter);
-//
-//
-//
-//        // Start voice
-//        reloadSettings();
+        // Register our receiver for the ACTION_SCREEN_OFF action. This will make our receiver
+        // code be called whenever the phone enters standby mode.
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(mReceiver, filter);
 
-        // Tell the user we started.
+        mHandler = new Handler();
+
+            // Tell the user we started.
         Toast.makeText(this, "Timer service created", Toast.LENGTH_SHORT).show();
     }
 
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -105,12 +100,50 @@ public class TimerService extends Service {
         Toast.makeText(this, "Timer service done", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Receives messages from activity.
+     */
+    private final IBinder mBinder = new LocalBinder();
+
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.i(TAG, "[SERVICE] onBind");
+        return mBinder;
+    }
+
+    public void startTimer(long interval) {
+        Log.i(TAG, "Timer started, interval: " + interval);
+        mInterval = interval;
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                notifyListeners();
+            }
+        }, mInterval);
+    }
+
+    public void stopTimer() {
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
+
+    public interface ICallback {
+    }
+
+    private ICallback mCallback;
+
+    public void registerCallback(ICallback cb) {
+        mCallback = cb;
+        //mStepDisplayer.passValue();
+        //mPaceListener.passValue();
+    }
 
     /**
      * Show a notification while this service is running.
      */
     private void showNotification() {
-        CharSequence text = getText(R.string.app_name);
+        CharSequence text = getText(R.string.app_name) + "-timer";
         Notification notification = new Notification(R.drawable.ic_notification, null,
                 System.currentTimeMillis());
         notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
@@ -124,6 +157,20 @@ public class TimerService extends Service {
 
         mNM.notify(R.string.app_name, notification);
     }
+
+    // BroadcastReceiver for handling ACTION_SCREEN_OFF.
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Check action just to be on the safe side.
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                // Reregisters the wakelock (not sure why)
+                wakeLock.release();
+                acquireWakeLock();
+            }
+        }
+    };
+
 
     private void acquireWakeLock() {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -147,7 +194,7 @@ public class TimerService extends Service {
     // Listener
 
     public interface Listener {
-        public void timeExpired();
+        public void timerExpired(long t);
     }
     private ArrayList<Listener> mListeners = new ArrayList<Listener>();
 
@@ -157,7 +204,7 @@ public class TimerService extends Service {
     public void notifyListeners() {
 //        mUtils.ding();
         for (Listener listener : mListeners) {
-            listener.timeExpired();
+            listener.timerExpired(Utils.currentTimeInMillis());
         }
     }
 

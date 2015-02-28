@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fourhcistudents.activo" >
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -62,13 +64,21 @@
             android:parentActivityName=".HomeActivity" >
             android:screenOrientation="portrait">
         </activity>
-        <service
+        <activity
             android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".TimerService"
             android:enabled="true"
             android:exported="false" >
         </service>
         <service
-            android:name=".TimerService"
+            android:name="com.fourhcistudents.pedometer.StepService"
             android:enabled="true"
             android:exported="false" >
         </service>

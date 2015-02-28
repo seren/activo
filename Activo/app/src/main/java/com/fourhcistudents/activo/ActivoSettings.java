@@ -46,11 +46,7 @@ public class ActivoSettings {
         return mSettings.getBoolean("phone_mode", false);
     }
 
-    public String userActivity() {
-        return mSettings.getString("user_activity", "situation_radioButton_normal");
-    }
-
-    public String getMaintainOption() {
+    public String getUserActivity() {
         String p = mSettings.getString("user_activity", "none");
         return
             p.equals("situation_radioButton_in_meeting") ? "in_meeting" : (
@@ -58,34 +54,72 @@ public class ActivoSettings {
             "situation_radioButton_normal"));
     }
 
+    public long getTimerInterval() {
+        long t = mSettings.getLong("timer_interval_ms", 5000);
+        return t;
+    }
+
+    public void setTimerInterval(float t) {
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putFloat("timer_interval", t);
+        editor.commit();
+    }
 
 
     //
     // Internal
 
-    public void saveServiceRunningWithTimestamp(boolean running) {
+    public void saveServiceRunningWithTimestamp(String serviceType, boolean running) {
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putBoolean("service_running", running);
-        editor.putLong("last_seen", com.fourhcistudents.activo.Utils.currentTimeInMillis());
+        editor.putBoolean(serviceType + "service_running", running);
+        editor.putLong(serviceType + "last_seen", com.fourhcistudents.activo.Utils.currentTimeInMillis());
         editor.commit();
     }
 
-    public void saveServiceRunningWithNullTimestamp(boolean running) {
+    public void saveServiceRunningWithNullTimestamp(String serviceType, boolean running) {
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putBoolean("service_running", running);
-        editor.putLong("last_seen", 0);
+        editor.putBoolean(serviceType + "service_running", running);
+        editor.putLong(serviceType + "last_seen", 0);
         editor.commit();
     }
 
-    public void clearServiceRunning() {
+    public void clearServiceRunning(String serviceType) {
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putBoolean("service_running", false);
-        editor.putLong("last_seen", 0);
+        editor.putBoolean(serviceType + "service_running", false);
+        editor.putLong(serviceType + "last_seen", 0);
         editor.commit();
     }
 
-    public boolean isServiceRunning() {
-        return mSettings.getBoolean("service_running", false);
+    public void saveTimerServiceRunningWithTimestamp(boolean running) {
+        saveServiceRunningWithTimestamp("timer", running);
+    }
+
+    public void saveTimerServiceRunningWithNullTimestamp(boolean running) {
+         saveServiceRunningWithNullTimestamp("timer", running);
+    }
+
+    public void clearTimerServiceRunning() {
+        clearServiceRunning("timer");
+    }
+
+    public void saveStepServiceRunningWithTimestamp(boolean running) {
+        saveServiceRunningWithTimestamp("step", running);
+    }
+
+    public void saveStepServiceRunningWithNullTimestamp(boolean running) {
+        saveServiceRunningWithNullTimestamp("step", running);
+    }
+
+    public void clearStepServiceRunning() {
+        clearServiceRunning("step");
+    }
+
+    public boolean isTimerServiceRunning() {
+        return mSettings.getBoolean("time_service_running", false);
+    }
+
+    public boolean isStepServiceRunning() {
+        return mSettings.getBoolean("step_service_running", false);
     }
 
     public boolean isNewStart() {
@@ -93,4 +127,7 @@ public class ActivoSettings {
         return mSettings.getLong("last_seen", 0) < Utils.currentTimeInMillis() - 1000*60*10;
     }
 
+    public int maxAllowedInactiveSeconds() {
+        return mSettings.getInt("max_user_idle_allowed", 20);
+    }
 }

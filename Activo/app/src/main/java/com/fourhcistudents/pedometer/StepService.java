@@ -42,7 +42,7 @@ import com.fourhcistudents.activo.R;
 
 
 public class StepService extends Service {
-	private static final String TAG = "com.project.fourci.pedometer.StepService";
+	private static final String TAG = "StepService";
     private SharedPreferences mSettings;
     private PedometerSettings mPedometerSettings;
     private SharedPreferences mState;
@@ -164,7 +164,7 @@ public class StepService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.i(TAG, "[SERVICE] onBind");
+        Log.i(TAG, "[STEPSERVICE] onBind");
         return mBinder;
     }
 
