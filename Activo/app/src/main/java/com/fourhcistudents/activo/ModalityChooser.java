@@ -8,6 +8,7 @@ package com.fourhcistudents.activo;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.hp.hpl.jena.query.Query;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 
 public class ModalityChooser {
     private Model model = ModelFactory.createDefaultModel();
+    private SharedPreferences mSettings;
 
     ModalityChooser(Context context) throws FileNotFoundException {
         //log init
@@ -72,6 +74,7 @@ public class ModalityChooser {
 //                "FILTER ( ?act  = <"+systemSettings.get("UserActivity")+">) .\n" +
 //                "FILTER ( ?loc  = <"+systemSettings.get("PhoneLocation")+">) .\n" +
 //                "FILTER ( ?mode = <"+systemSettings.get("PhoneMode")+">)\n"
+//                          mSettings.getBoolean("on_call", false);
         "}");
 
 
