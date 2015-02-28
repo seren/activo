@@ -24,12 +24,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
+import android.media.MediaPlayer;
+
 import javax.net.ssl.HostnameVerifier;
 
 public class HomeActivity extends ActionBarActivity{
-
-    private Switch oralswitch;
-
     // Speech
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
@@ -39,9 +38,6 @@ public class HomeActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        oralswitch = (Switch) findViewById(R.id.oralswitch);
-        oralswitch.setChecked(true);
-
         // Speech
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
@@ -112,7 +108,7 @@ public class HomeActivity extends ActionBarActivity{
         startActivity(i);
     }
 
-    public void showNotification(){
+    public void showNotification() {
 
         // define sound URI, the sound to be played when there's a notification
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -130,11 +126,7 @@ public class HomeActivity extends ActionBarActivity{
                 .setSmallIcon(R.drawable.activo_logo)
                 .setContentIntent(pIntent)
                 .setSound(soundUri)
-
-                //.addAction(R.drawable.sound_on, "View", pIntent)
-                //.addAction(R.drawable.sound_off, "Cancel", pCancel)
                 .setPriority(Notification.PRIORITY_MAX) // Fix for showing addAction when it's connected to PC
-
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -202,13 +194,11 @@ public class HomeActivity extends ActionBarActivity{
         System.out.println("FIRST WORD: " + wordList[0]);
         String firstWord = wordList[0];
 
-        if (firstWord.equals("play")) {
+        if (firstWord.equals("start")) {
             startActivity(new Intent(this, StartExerciseActivity.class));
         } else {
             System.out.println("--NOT RECOGNIZED--");
         }
-
     }
 
 }
-

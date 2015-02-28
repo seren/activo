@@ -9,25 +9,26 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <!--<ImageView-->
-        <!--android:id="@+id/volume"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="150dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="98dp"-->
-        <!--android:src="@drawable/logo" />-->
+    <ImageView
+        android:id="@+id/volume"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/activo_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:text="@string/loading"
-        android:textColor="#ffff5d2f"
+        android:textColor="#5f5f5f"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:typeface="sans"/>
+        android:typeface="sans"
+        android:layout_below="@+id/volume"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -56,7 +56,6 @@ public class SituationChooserActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
 
-
     }
 
     public void onRadioButtonClicked(View view) {
