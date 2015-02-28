@@ -68,11 +68,7 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
         startActivity(intent);
         return true;
     }
-       // int id = item.getItemId();
-        //if (id == android.R.id.home)
-          //  NavUtils.navigateUpFromSameTask(this);
-        //return true;
-    //}
+
    
 
 
@@ -87,31 +83,6 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-   // private void setupActionBar() {
-      //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // Show the Up button in the action bar.
-           // getActionBar().setDisplayHomeAsUpEnabled(true);
-        //}
-    //}
-
-
-    //public boolean onOptionsItemSelected(MenuItem item) {
-      //  int id = item.getItemId();
-        //if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
-            // TODO: If Settings has multiple levels, Up should navigate up
-            // that hierarchy.
-          //  NavUtils.navigateUpFromSameTask(this);
-            //return true;
-        //}
-        //return super.onOptionsItemSelected(item);
-    //}
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -130,31 +101,12 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
             return;
         }
 
-        // In the simplified UI, fragments are not used at all and we instead
-        // use the older PreferenceActivity APIs.
 
-        // Add 'general' preferences.
-//        addPreferencesFromResource(R.xml.pref_general);
-
-//        PreferenceCategory fakeHeader = new PreferenceCategory(this);
-//        fakeHeader.setTitle(R.string.pref_header_exercises);
-//        getPreferenceScreen().addPreference(fakeHeader);
         addPreferencesFromResource(R.xml.pref_exercise);
-//        fakeHeader = new PreferenceCategory(this);
-//        fakeHeader.setTitle(R.string.pref_header_data_sync);
-//        getPreferenceScreen().addPreference(fakeHeader);
+
         addPreferencesFromResource(R.xml.pref_reminders);
 
         addPreferencesFromResource(R.xml.pref_instruction);
-
-        // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
-        // their values. When their values change, their summaries are updated
-        // to reflect the new value, per the Android Design guidelines.
-//        bindPreferenceSummaryToValue(findPreference("exercise_type_preference"));
-//        bindPreferenceSummaryToValue(findPreference("exercise_time_preference"));
-//        bindPreferenceSummaryToValue(findPreference("rest_time_preference"));
-//        bindPreferenceSummaryToValue(findPreference("reminders_daily"));
-//        bindPreferenceSummaryToValue(findPreference("reminders_frequency"));
     }
 
 
@@ -167,9 +119,6 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
      */
     private static boolean isSimplePreferences(Context context) {
         return true;
-//        return ALWAYS_SIMPLE_PREFS
-//                || Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-//                || !isXLargeTablet(context);
     }
 
 
@@ -193,28 +142,6 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
-
-//            } else if (preference instanceof RingtonePreference) {
-//                // For ringtone preferences, look up the correct display value
-//                // using RingtoneManager.
-//                if (TextUtils.isEmpty(stringValue)) {
-//                    // Empty values correspond to 'silent' (no ringtone).
-//                    preference.setSummary(R.string.pref_ringtone_silent);
-//
-//                } else {
-//                    Ringtone ringtone = RingtoneManager.getRingtone(
-//                            preference.getContext(), Uri.parse(stringValue));
-//
-//                    if (ringtone == null) {
-//                        // Clear the summary if there was a lookup error.
-//                        preference.setSummary(null);
-//                    } else {
-//                        // Set the summary to reflect the new ringtone display
-//                        // name.
-//                        String name = ringtone.getTitle(preference.getContext());
-//                        preference.setSummary(name);
-//                    }
-//                }
 
             } else {
                 // For all other preferences, set the summary to the value's
