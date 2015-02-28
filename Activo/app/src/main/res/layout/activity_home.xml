@@ -50,25 +50,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout">
 
-        <Button
-            android:id="@+id/btnShowNotification"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Show Notification"
-            android:layout_above="@+id/btnCancelNotification"
-            android:layout_alignParentLeft="true">
-        </Button>
-
-        <Button
-            android:id="@+id/btnCancelNotification"
-            android:layout_width="386dp"
-            android:layout_height="wrap_content"
-            android:text="Cancel Notification"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="83dp">
-        </Button>
-
     </RelativeLayout>
 
 </RelativeLayout>
