@@ -6,9 +6,11 @@ import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -54,10 +56,6 @@ public class HomeActivity extends ActionBarActivity{
                     case R.id.btnShowNotification:
                         showNotification();
                         break;
-
-                    case R.id.btnCancelNotification:
-                        cancelNotification(0);
-                        break;
                 }
             }
         };
@@ -87,8 +85,9 @@ public class HomeActivity extends ActionBarActivity{
                 startActivity(new Intent(this, SituationChooserActivity.class));
                 return true;
             case R.id.trigger_notification:
-                Toast.makeText(this, "Notifications should trigger", Toast.LENGTH_SHORT).show();
-                MainActivity.sendNotification(this);
+//                Toast.makeText(this, "Notifications should trigger", Toast.LENGTH_SHORT).show();
+//                MainActivity.sendNotification(this);
+                showNotification();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -107,7 +106,9 @@ public class HomeActivity extends ActionBarActivity{
         startActivity(i);
     }
 
+    // sends notifications of all types
     public void showNotification() {
+//        Toast.makeText(this, "Notification triggered (in HomeActivity)", Toast.LENGTH_LONG).show();
 
         // define sound URI, the sound to be played when there's a notification
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -116,17 +117,86 @@ public class HomeActivity extends ActionBarActivity{
         Intent intent = new Intent(HomeActivity.this, StartExerciseActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(HomeActivity.this, 0, intent, 0);
 
+        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean manual_situations_enabled = pm.getBoolean("manual_situations_enabled", false);
+        boolean silent = false;
+        boolean vibration = false;
+        boolean text = false;
+
+        String msg;
+        // system settings
+        if (manual_situations_enabled) {
+            boolean phone_location = pm.getBoolean("phone_location", false);
+            boolean phone_mode = pm.getBoolean("phone_mode", false);
+            String user_activity = pm.getString("user_activity", "none");
+
+            msg = "activity:" + user_activity;
+            if (phone_mode) {
+                msg = msg + ", phone:silent";
+                silent = true;
+            } else {
+                msg = msg + ", phone:audible";
+                silent = false;
+            }
+            if (phone_location) {
+                msg = msg + ", location:pocket";
+                vibration = true;
+                text = false;
+            } else {
+                msg = msg + ", location:out-of-pocket";
+                vibration = true;
+                text = true;
+            }
+
+        } else {
+            silent = false;
+            vibration = true;
+            text = true;
+
+            boolean on_call = pm.getBoolean("on_call", false);
+            boolean proximity = pm.getBoolean("proximity", false);
+            msg = "activity:";
+            if (on_call) {
+                msg = msg + ":on-call";
+                silent = true;
+                vibration = false;
+                text = false;
+            } else {
+                msg = msg + ":not-on-call";
+            }
+            if (proximity) {
+                msg = msg + ", location:pocket";
+                text = false;
+            } else {
+                msg = msg + ", location:out-of-pocket";
+                text = true;
+            }
+            msg = msg + ", phone-audio:SYSTEM";
+        }
+
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+
         // this is it, we'll build the notification!
         // in the addAction method, if you don't want any icon, just set the first param to 0
-        Notification mNotification = new Notification.Builder(this)
-
-                .setContentTitle("You've been still for a while!")
-                .setContentText("Here's an awesome exercise for you!")
-                .setSmallIcon(R.drawable.activo_logo)
-                .setContentIntent(pIntent)
-                .setSound(soundUri)
-                .setPriority(Notification.PRIORITY_MAX) // Fix for showing addAction when it's connected to PC
-                .build();
+        Notification mNotification;
+        if (silent) {
+     mNotification = new Notification.Builder(this)
+            .setContentTitle("You've been still for a while!")
+            .setContentText("Here's an awesome exercise for you!")
+            .setSmallIcon(R.drawable.activo_logo)
+            .setContentIntent(pIntent)
+            .setSound(soundUri)
+            .setPriority(Notification.PRIORITY_MAX) // Fix for showing addAction when it's connected to PC
+            .build();
+} else {
+    mNotification = new Notification.Builder(this)
+            .setContentTitle("You've been still for a while!")
+            .setContentText("Here's an awesome exercise for you!")
+            .setSmallIcon(R.drawable.activo_logo)
+            .setContentIntent(pIntent)
+            .setPriority(Notification.PRIORITY_MAX) // Fix for showing addAction when it's connected to PC
+            .build();
+}
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -134,6 +204,10 @@ public class HomeActivity extends ActionBarActivity{
         mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         notificationManager.notify(0, mNotification);
+
+        if (text == false) {
+            cancelNotification(0);
+        }
     }
 
     public void cancelNotification(int notificationId){
@@ -144,6 +218,7 @@ public class HomeActivity extends ActionBarActivity{
             nMgr.cancel(notificationId);
         }
     }
+
 
     // Show google speech input dialog
     private void promptSpeechInput() {

@@ -36,7 +36,7 @@ public class SituationChooserActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_situation_chooser, menu);
         return true;
     }
 
@@ -71,16 +71,16 @@ public class SituationChooserActivity extends ActionBarActivity {
         switch(view.getId()) {
             case R.id.situation_radioButton_in_meeting:
                 if (checked) {
-                    button = "situation_radioButton_in_meeting";
+                    button = "in_meeting";
                 }
                 break;
             case R.id.situation_radioButton_on_call:
                 if (checked) {
-                    button = "situation_radioButton_on_call";
+                    button = "on_call";
                 }
                 break;
             default:
-                button = "situation_radioButton_normal";
+                button = "normal";
                 break;
         }
         e.putString("user_activity", button);
@@ -127,7 +127,7 @@ public class SituationChooserActivity extends ActionBarActivity {
 
     // create toasts
     public void msg(String text) {
-        Log.d("SituationChooserActivity",text);
+        Log.d(TAG,"Toast: " + text);
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(context, text, duration).show();
@@ -147,8 +147,8 @@ public class SituationChooserActivity extends ActionBarActivity {
         Switch s_mode = (Switch) findViewById(R.id.situation_switch_phone_mode);
         Switch s_enabled = (Switch) findViewById(R.id.manual_situations_enabled);
 
-        s_location.setChecked(sp.getBoolean("situation_switch_phone_location", false));
-        s_mode.setChecked(sp.getBoolean("situation_switch_phone_mode", false));
+        s_location.setChecked(sp.getBoolean("phone_location", false));
+        s_mode.setChecked(sp.getBoolean("phone_mode", false));
         s_enabled.setChecked(sp.getBoolean("manual_situations_enabled", false));
     }
 

@@ -41,7 +41,7 @@ public class SettingsActivity extends ActionBarPreferenceActivity {
 //        setupActionBar();
         final Toolbar toolbar=getToolbar();
         toolbar.setTitle(R.string.action_settings);
-        getMenuInflater().inflate(R.menu.menu_home,toolbar.getMenu());
+        getMenuInflater().inflate(R.menu.menu_minimal,toolbar.getMenu());
         // I've added this for those who like to have the shadow below the actionbar
         setEnabledActionBarShadow(true);
     }

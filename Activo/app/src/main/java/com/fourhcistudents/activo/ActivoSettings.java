@@ -29,9 +29,11 @@ import com.fourhcistudents.pedometer.Utils;
 public class ActivoSettings {
 
     private SharedPreferences mSettings;
+    private SharedPreferences.Editor editor;
 
     public ActivoSettings(SharedPreferences settings) {
         mSettings = settings;
+        editor = mSettings.edit();
     }
 
     public boolean isManualSituationsEnabled() {
@@ -60,7 +62,6 @@ public class ActivoSettings {
     }
 
     public void setTimerInterval(float t) {
-        SharedPreferences.Editor editor = mSettings.edit();
         editor.putFloat("timer_interval", t);
         editor.commit();
     }
@@ -70,21 +71,18 @@ public class ActivoSettings {
     // Internal
 
     public void saveServiceRunningWithTimestamp(String serviceType, boolean running) {
-        SharedPreferences.Editor editor = mSettings.edit();
         editor.putBoolean(serviceType + "service_running", running);
         editor.putLong(serviceType + "last_seen", com.fourhcistudents.activo.Utils.currentTimeInMillis());
         editor.commit();
     }
 
     public void saveServiceRunningWithNullTimestamp(String serviceType, boolean running) {
-        SharedPreferences.Editor editor = mSettings.edit();
         editor.putBoolean(serviceType + "service_running", running);
         editor.putLong(serviceType + "last_seen", 0);
         editor.commit();
     }
 
     public void clearServiceRunning(String serviceType) {
-        SharedPreferences.Editor editor = mSettings.edit();
         editor.putBoolean(serviceType + "service_running", false);
         editor.putLong(serviceType + "last_seen", 0);
         editor.commit();
@@ -130,4 +128,10 @@ public class ActivoSettings {
     public int maxAllowedInactiveSeconds() {
         return mSettings.getInt("max_user_idle_allowed", 20);
     }
+
+
+
+
+
 }
+
