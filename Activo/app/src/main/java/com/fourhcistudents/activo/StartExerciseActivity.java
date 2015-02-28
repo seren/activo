@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
@@ -26,6 +27,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import android.media.MediaPlayer;
+
+// Gestures
+
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 public class StartExerciseActivity extends ActionBarActivity {
 
@@ -58,6 +67,9 @@ public class StartExerciseActivity extends ActionBarActivity {
     public int count = 0;
 
     public boolean isPaused = false;
+
+    // Gestures
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +108,9 @@ public class StartExerciseActivity extends ActionBarActivity {
                 toggleUI();
             }
         });
+
+        // Gestures
+        gestureDetector = new GestureDetector(new SwipeGestureDetector());
     }
 
     @Override
@@ -332,16 +347,20 @@ public class StartExerciseActivity extends ActionBarActivity {
                     }
                 })
                 .show();
+
+        mPhoneIsSilent = true;
+        pauseButton.setVisibility(View.INVISIBLE);
+        playButton.setVisibility(View.VISIBLE);
+        toggleUI();
     }
 
     //Toggles the UI images from silent to normal and vice-versa
-
     private void toggleUI() {
         Button imageView = (Button) findViewById(R.id.sound);
-        if (mPhoneIsSilent) {
-            soundIcon = getResources().getDrawable(R.drawable.sound_off);
-        } else {
+        if (!mPhoneIsSilent && mediaPlayer.isPlaying()) {
             soundIcon = getResources().getDrawable(R.drawable.sound_on);
+        } else {
+            soundIcon = getResources().getDrawable(R.drawable.sound_off);
         }
         //Using deprecated method to support minSDKlevel below 16. Maybe change minSDKlevel in manifest and use setBackground instead?
         imageView.setBackgroundDrawable(soundIcon);
@@ -351,6 +370,58 @@ public class StartExerciseActivity extends ActionBarActivity {
     protected void onDestroy() {
         mediaPlayer.release();
         super.onDestroy();
+    }
+
+    // Gestures
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gestureDetector.onTouchEvent(event)) {
+            return true;
+        }
+        return super.onTouchEvent(event);
+    }
+
+    private void onLeftSwipe() {
+        exercise("next");
+    }
+
+    private void onRightSwipe() {
+        exercise("previous");
+    }
+
+    // Private class for gestures
+    private class SwipeGestureDetector extends SimpleOnGestureListener {
+        // Swipe properties, you can change it to make the swipe
+        // longer or shorter and speed
+        private static final int SWIPE_MIN_DISTANCE = 120;
+        private static final int SWIPE_MAX_OFF_PATH = 200;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2,
+                               float velocityX, float velocityY) {
+            try {
+                float diffAbs = Math.abs(e1.getY() - e2.getY());
+                float diff = e1.getX() - e2.getX();
+
+                if (diffAbs > SWIPE_MAX_OFF_PATH)
+                    return false;
+
+                // Left swipe
+                if (diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    StartExerciseActivity.this.onLeftSwipe();
+
+                    // Right swipe
+                } else if (-diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    StartExerciseActivity.this.onRightSwipe();
+                }
+            } catch (Exception e) {
+                System.out.println("Error on gestures");
+            }
+            return false;
+        }
     }
 
 }
