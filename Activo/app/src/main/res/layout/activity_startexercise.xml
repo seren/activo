@@ -8,26 +8,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:indeterminate="false"
-        android:max="30"
-        android:progress="45"
-        android:progressDrawable="@drawable/circular_progress_bar"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/time_left_value"
-        android:layout_toEndOf="@+id/time_left_value" />
+    <Button
+        android:id="@+id/sound"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:background="@null"
+        android:src="@drawable/sound_on"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
 
     <ImageView
         android:id="@+id/exercise"
         android:layout_width="200dp"
         android:layout_height="150dp"
         android:src="@drawable/exercise1"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/instructions"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -48,7 +43,7 @@
         android:textSize="34sp"
         android:textStyle="bold"
         android:typeface="sans"
-        android:layout_below="@+id/exercise"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -56,27 +51,25 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/playbutton"
-        android:layout_marginBottom="51dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnSpeak" />
+        android:layout_alignTop="@+id/pause_btn"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/pause_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/pausebutton"
-        android:layout_marginBottom="51dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnSpeak" />
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/instructions"
+        android:layout_alignLeft="@+id/play_btn" />
 
     <Button
         android:id="@+id/next_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/nextbutton"
-        android:layout_alignBottom="@+id/previous_btn"
-        android:layout_alignTop="@+id/stop_btn"
-        android:layout_alignParentRight="true" />
+        android:layout_alignTop="@+id/pause_btn"
+        android:layout_alignRight="@+id/exercise" />
 
     <Button
         android:id="@+id/previous_btn"
@@ -84,15 +77,7 @@
         android:layout_height="40dp"
         android:background="@drawable/previousbutton"
         android:layout_alignTop="@+id/play_btn"
-        android:layout_toLeftOf="@+id/exercise" />
-
-    <Button
-        android:id="@+id/stop_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/stopbutton"
-        android:layout_alignTop="@+id/play_btn"
-        android:layout_alignRight="@+id/exercise" />
+        android:layout_alignLeft="@+id/exercise" />
 
     <ImageButton
         android:id="@+id/btnSpeak"
@@ -101,19 +86,20 @@
         android:background="@null"
         android:src="@drawable/micicon"
         android:layout_gravity="center_horizontal"
-        android:layout_alignTop="@+id/progressbar"
-        android:layout_alignRight="@+id/instructions" />
+        android:layout_below="@+id/play_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp" />
 
-    <TextView
-        android:id="@+id/txtSpeechInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="false"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        android:layout_alignEnd="@id/btnSpeak"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentBottom="true" />
+    <!--<TextView-->
+        <!--android:id="@+id/txtSpeechInput"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="false"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textStyle="normal"-->
+        <!--android:layout_alignEnd="@id/btnSpeak"-->
+        <!--android:layout_alignParentEnd="false"-->
+        <!--android:layout_alignParentBottom="true" />-->
 
     <Switch
         android:layout_width="wrap_content"

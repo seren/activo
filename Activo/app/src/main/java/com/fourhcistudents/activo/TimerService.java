@@ -17,7 +17,6 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
-
 import java.util.ArrayList;
 
 

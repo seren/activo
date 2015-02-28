@@ -5,12 +5,16 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
+// Gestures
 
 public class StartExerciseActivity extends ActionBarActivity {
 
@@ -30,6 +35,7 @@ public class StartExerciseActivity extends ActionBarActivity {
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100;
+    private int audioLength = 0;
 
     private MediaPlayer mediaPlayer;
 
@@ -38,7 +44,10 @@ public class StartExerciseActivity extends ActionBarActivity {
     private Button previousButton;
     private Button playButton;
     private Button pauseButton;
-    private Button stopButton;
+    private Button toggleSoundBtn;
+    Drawable soundIcon;
+
+    private boolean mPhoneIsSilent;
 
     // Images
     private ImageView image;
@@ -51,6 +60,9 @@ public class StartExerciseActivity extends ActionBarActivity {
     public int count = 0;
 
     public boolean isPaused = false;
+
+    // Gestures
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +81,29 @@ public class StartExerciseActivity extends ActionBarActivity {
             }
         });
 
+        // Play, Pause, Next
         addListenerOnButton();
+
+        mPhoneIsSilent = false; // Initial setting
+        toggleUI();
+
+        toggleSoundBtn = (Button)findViewById(R.id.sound);
+        toggleSoundBtn.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (mPhoneIsSilent) {
+                    mediaPlayer.start();
+                    mPhoneIsSilent = false;
+                } else {
+                    mediaPlayer.pause();
+                    mPhoneIsSilent = true;
+                }
+                toggleUI();
+            }
+        });
+
+        // Gestures
+        gestureDetector = new GestureDetector(new SwipeGestureDetector());
     }
 
     @Override
@@ -82,9 +116,13 @@ public class StartExerciseActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
+                if (mediaPlayer.isPlaying())
+                    mediaPlayer.release();
                 return true;
             case R.id.situation_chooser:
                 startActivity(new Intent(this, SituationChooserActivity.class));
+                if (mediaPlayer.isPlaying())
+                    mediaPlayer.release();
                 return true;
             case R.id.trigger_notification:
                 Toast.makeText(this, "Notifications should trigger", Toast.LENGTH_SHORT).show();
@@ -104,14 +142,13 @@ public class StartExerciseActivity extends ActionBarActivity {
         previousButton = (Button) findViewById(R.id.previous_btn);
         pauseButton = (Button) findViewById(R.id.pause_btn);
         playButton = (Button) findViewById(R.id.play_btn);
-        stopButton = (Button) findViewById(R.id.stop_btn);
 
         // First run
         if (count == 0) {
             previousButton.setVisibility(View.INVISIBLE);       // Hide previous button
-            pauseButton.setVisibility(View.INVISIBLE);          // Hide pause button
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);   // Initial sound
-
+            playButton.setVisibility(View.INVISIBLE);          // Hide play button
+            mediaPlayer = MediaPlayer.create(this, R.raw.jump);   // Initial sound
+            mediaPlayer.start();
         }
 
         // NEXT
@@ -146,14 +183,6 @@ public class StartExerciseActivity extends ActionBarActivity {
             }
         });
 
-        // STOP
-        stopButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exercise("stop");
-            }
-        });
-
     }
 
     // Show google speech input dialog
@@ -184,7 +213,7 @@ public class StartExerciseActivity extends ActionBarActivity {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     // TODO: comment out in final version
-                    txtSpeechInput.setText(result.get(0));
+                    //txtSpeechInput.setText(result.get(0));
                     // Check for keyword
                     voiceCommand(result.get(0));
                 }
@@ -196,16 +225,14 @@ public class StartExerciseActivity extends ActionBarActivity {
     // Get the right sound to playback
     public void getSound() {
 
-        //TODO: real audio
-
         if (count == 0) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);
+            mediaPlayer = MediaPlayer.create(this, R.raw.jump);
         }
         else if (count == 1) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound2);
+            mediaPlayer = MediaPlayer.create(this, R.raw.stretch);
         }
         else if (count == 2) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.sound3);
+            mediaPlayer = MediaPlayer.create(this, R.raw.run);
         }
     }
 
@@ -222,15 +249,13 @@ public class StartExerciseActivity extends ActionBarActivity {
 
         if (firstWord.equals("next")) {
             exercise("next");
-        // System often mistakes previous with previews
+            // System often mistakes previous with previews
         } else if (firstWord.equals("previous") || firstWord.equals("previews")) {
             exercise("previous");
         } else if (firstWord.equals("play")) {
             exercise("play");
-        } else if (firstWord.equals("pause")) {
+        } else if (firstWord.equals("pause") || firstWord.equals("boss")) {
             exercise("pause");
-        } else if (firstWord.equals("stop")) {
-            exercise("stop");
         } else {
             System.out.println("--NOT RECOGNIZED--");
         }
@@ -242,38 +267,40 @@ public class StartExerciseActivity extends ActionBarActivity {
         final TypedArray exe = getResources().obtainTypedArray(R.array.exercise_images);
 
         if (s.equals("next")) {
-            previousButton.setVisibility(View.VISIBLE);
-            if (!isPaused) {
-                playButton.setVisibility(View.VISIBLE);
-                pauseButton.setVisibility(View.INVISIBLE);
+            mPhoneIsSilent = false;
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
             }
+            previousButton.setVisibility(View.VISIBLE);
+            playButton.setVisibility(View.INVISIBLE);
+            pauseButton.setVisibility(View.VISIBLE);
             if (count < 2) {
                 image.setImageResource(exe.getResourceId(count + 1, 0));
                 instruction.setText(instructions[count + 1]);
                 count++;
-                mediaPlayer.stop();
+                getSound();
+                mediaPlayer.start();
                 if (count == 2) {
                     nextButton.setVisibility(View.INVISIBLE);
                 }
             } else {
                 limitReached();
             }
-            isPaused = false;
+            //isPaused = false;
+        } else if (s.equals("previous")) {
+            mPhoneIsSilent = false;
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
-                playButton.setVisibility(View.VISIBLE);
             }
-        } else if (s.equals("previous")) {
             nextButton.setVisibility(View.VISIBLE);
-            if (!isPaused) {
-                playButton.setVisibility(View.VISIBLE);
-                pauseButton.setVisibility(View.INVISIBLE);
-            }
+            playButton.setVisibility(View.INVISIBLE);
+            pauseButton.setVisibility(View.VISIBLE);
             if (count > 0) {
                 image.setImageResource(exe.getResourceId(count - 1, 0));
                 instruction.setText(instructions[count - 1]);
                 count--;
-                mediaPlayer.stop();
+                getSound();
+                mediaPlayer.start();
                 if (count == 0) {
                     previousButton.setVisibility(View.INVISIBLE);
                 }
@@ -281,32 +308,29 @@ public class StartExerciseActivity extends ActionBarActivity {
                 limitReached();
             }
             isPaused = false;
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
-                playButton.setVisibility(View.VISIBLE);
-            }
         } else if (s.equals("play")) {
             pauseButton.setVisibility(View.VISIBLE);
             playButton.setVisibility(View.INVISIBLE);
-            if (!isPaused) {
-                getSound();
-                mediaPlayer.start();
-            } else {
-                mediaPlayer.start();
-                isPaused = false;
+            if (!mediaPlayer.isPlaying()) { // Do this to ensure that you will not play more than once
+                if (!isPaused) {
+                    getSound();
+                    mediaPlayer.start();
+                } else {
+                    mediaPlayer.seekTo(audioLength);
+                    mediaPlayer.start();
+                    isPaused = false;
+                }
             }
         } else if (s.equals("pause")) {
             playButton.setVisibility(View.VISIBLE);
             pauseButton.setVisibility(View.INVISIBLE);
-            if (mediaPlayer.isPlaying())
+            if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
+                audioLength = mediaPlayer.getCurrentPosition();
+            }
             isPaused = true;
-        } else if (s.equals("stop")) {
-            playButton.setVisibility(View.VISIBLE);
-            pauseButton.setVisibility(View.INVISIBLE);
-            mediaPlayer.stop();
-            isPaused = false;
         }
+        toggleUI();
     }
 
     // Pop up when there's no more previous or next exercise
@@ -319,6 +343,81 @@ public class StartExerciseActivity extends ActionBarActivity {
                     }
                 })
                 .show();
+
+        mPhoneIsSilent = true;
+        pauseButton.setVisibility(View.INVISIBLE);
+        playButton.setVisibility(View.VISIBLE);
+        toggleUI();
+    }
+
+    //Toggles the UI images from silent to normal and vice-versa
+    private void toggleUI() {
+        Button imageView = (Button) findViewById(R.id.sound);
+        if (!mPhoneIsSilent && mediaPlayer.isPlaying()) {
+            soundIcon = getResources().getDrawable(R.drawable.sound_on);
+        } else {
+            soundIcon = getResources().getDrawable(R.drawable.sound_off);
+        }
+        //Using deprecated method to support minSDKlevel below 16. Maybe change minSDKlevel in manifest and use setBackground instead?
+        imageView.setBackgroundDrawable(soundIcon);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mediaPlayer.release();
+        super.onDestroy();
+    }
+
+    // Gestures
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gestureDetector.onTouchEvent(event)) {
+            return true;
+        }
+        return super.onTouchEvent(event);
+    }
+
+    private void onLeftSwipe() {
+        exercise("next");
+    }
+
+    private void onRightSwipe() {
+        exercise("previous");
+    }
+
+    // Private class for gestures
+    private class SwipeGestureDetector extends SimpleOnGestureListener {
+        // Swipe properties, you can change it to make the swipe
+        // longer or shorter and speed
+        private static final int SWIPE_MIN_DISTANCE = 120;
+        private static final int SWIPE_MAX_OFF_PATH = 200;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2,
+                               float velocityX, float velocityY) {
+            try {
+                float diffAbs = Math.abs(e1.getY() - e2.getY());
+                float diff = e1.getX() - e2.getX();
+
+                if (diffAbs > SWIPE_MAX_OFF_PATH)
+                    return false;
+
+                // Left swipe
+                if (diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    StartExerciseActivity.this.onLeftSwipe();
+
+                    // Right swipe
+                } else if (-diff > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    StartExerciseActivity.this.onRightSwipe();
+                }
+            } catch (Exception e) {
+                System.out.println("Error on gestures");
+            }
+            return false;
+        }
     }
 
 }

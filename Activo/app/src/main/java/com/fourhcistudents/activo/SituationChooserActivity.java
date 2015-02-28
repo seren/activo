@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +22,15 @@ public class SituationChooserActivity extends ActionBarActivity {
     private SharedPreferences sp;
     private HashMap<String, String> situationPrefsHash = new HashMap<String, String>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situation_chooser);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         setDefaults();
+
     }
 
     @Override
@@ -53,8 +57,6 @@ public class SituationChooserActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     public void onRadioButtonClicked(View view) {
         String button = "";
@@ -112,6 +114,7 @@ public class SituationChooserActivity extends ActionBarActivity {
 
     // create toasts
     public void msg(String text) {
+        Log.d("SituationChooserActivity",text);
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(context, text, duration).show();
@@ -135,5 +138,8 @@ public class SituationChooserActivity extends ActionBarActivity {
         s_mode.setChecked(sp.getBoolean("situation_switch_phone_mode", false));
         s_enabled.setChecked(sp.getBoolean("manual_situations_enabled", false));
     }
+
+
+
 }
 

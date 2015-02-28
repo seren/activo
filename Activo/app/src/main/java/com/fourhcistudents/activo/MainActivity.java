@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.fourhcistudents.pedometer.StepDetector;
 import com.fourhcistudents.pedometer.StepService;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 
 public class MainActivity extends Activity {

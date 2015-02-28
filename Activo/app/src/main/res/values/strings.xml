@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">main</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Activo Loading...</string>
     <string name="instructions">Jump!</string>
     <string name="title_activity_situation_chooser">SituationChooserActivity</string>
     <string name="situation_chooser">Situation Selection</string>
@@ -25,13 +25,17 @@
         <item>@drawable/exercise2</item>
         <item>@drawable/exercise3</item>
     </array>
-    <array name="sound">
-        <item>@raw/sound1</item>
-        <item>@raw/sound2</item>
-        <item>@raw/sound3</item>
+    <array name="audio">
+        <item>@raw/jump</item>
+        <item>@raw/stretch</item>
+        <item>@raw/run</item>
     </array>
     <array name="pause_and_play">
         <item>@drawable/playbutton</item>
         <item>@drawable/pausebutton</item>
+    </array>
+    <array name="sound_icon">
+        <item>@drawable/sound_on</item>
+        <item>@drawable/sound_off</item>
     </array>
 </resources>
