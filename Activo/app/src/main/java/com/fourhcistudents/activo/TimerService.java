@@ -45,11 +45,6 @@ public class TimerService extends Service {
         }
     }
 
-//    public TimerService() {
-//        // get the timeout from the settings
-//        // register with the settings object to
-//    }
-
     @Override
     public void onCreate() {
         Log.i(TAG, "[SERVICE] onCreate");
@@ -58,22 +53,14 @@ public class TimerService extends Service {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         showNotification();
 
-//        // Load settings
-//        mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-//        mActivoSettings = new ActivoSettings(mSettings);
-//        mInterval = mSettings.getTimerInterval();
+
 
         mUtils = Utils.getInstance();
         mUtils.setService(this);
-//        mUtils.initTTSIfNeeded();
 
         acquireWakeLock();
 
-//        // Start detecting
-//        mStepDetector = new StepDetector();
-//        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-//        registerDetector();
-//
+
         // Register our receiver for the ACTION_SCREEN_OFF action. This will make our receiver
         // code be called whenever the phone enters standby mode.
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
@@ -81,7 +68,7 @@ public class TimerService extends Service {
 
         mHandler = new Handler();
 
-            // Tell the user we started.
+        // Tell the user we started.
         Toast.makeText(this, "Timer service created", Toast.LENGTH_SHORT).show();
     }
 
@@ -134,8 +121,6 @@ public class TimerService extends Service {
 
     public void registerCallback(ICallback cb) {
         mCallback = cb;
-        //mStepDisplayer.passValue();
-        //mPaceListener.passValue();
     }
 
     /**
@@ -174,20 +159,11 @@ public class TimerService extends Service {
     private void acquireWakeLock() {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         int wakeFlags;
-//        if (mActivoSettings.wakeAggressively()) {
-//            wakeFlags = PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP;
-//        }
-//        else if (mActivoSettings.keepScreenOn()) {
-//            wakeFlags = PowerManager.SCREEN_DIM_WAKE_LOCK;
-//        }
-//        else {
-            wakeFlags = PowerManager.PARTIAL_WAKE_LOCK;
-//        }
+
+        wakeFlags = PowerManager.PARTIAL_WAKE_LOCK;
         wakeLock = pm.newWakeLock(wakeFlags, TAG);
         wakeLock.acquire();
     }
-
-
 
     //-----------------------------------------------------
     // Listener
@@ -201,45 +177,9 @@ public class TimerService extends Service {
         mListeners.add(l);
     }
     public void notifyListeners() {
-//        mUtils.ding();
         for (Listener listener : mListeners) {
             listener.timerExpired(Utils.currentTimeInMillis());
         }
     }
 
-
-
-
 }
-
-
-
-//    public void startTimer(listener) {
-//
-//    }
-//
-//    public void timerExpired() {
-//
-//    }
-//
-
-
-// Method: counter that either counts time constantly, or sets a wake-up call for the future
-
-// Method: reset method
-
-// Method: change the timer interval
-
-// Method: alert listeners (usernotifier) that timer went off
-
-//    final int interval = 3000; // 3 Seconds
-//    Handler handler = new Handler();
-//    Runnable runnable = new Runnable(){
-//        public void run() {
-//            Toast.makeText(getApplicationContext(), "Here", Toast.LENGTH_SHORT).show();
-//
-//
-//        }
-//    };
-//    handler.postAtTime(runnable, System.currentTimeMillis()+interval);
-//    handler.postDelayed(runnable, interval);
