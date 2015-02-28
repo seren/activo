@@ -7,8 +7,12 @@ package com.fourhcistudents.activo;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Switch;
 
 import java.util.Date;
 
@@ -20,11 +24,12 @@ public class PhoneCallReceiver extends BroadcastReceiver {
     private static Date callStartTime;
     private static boolean isIncoming;
     private static String savedNumber;  //because the passed incoming is only valid in ringing
-
+    private SharedPreferences sp;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        sp = PreferenceManager.getDefaultSharedPreferences(context);
         //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
         if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
             savedNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
@@ -85,12 +90,24 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                 if(lastState == TelephonyManager.CALL_STATE_RINGING){
                     //Ring but no pickup-  a miss
                     onMissedCall(context, savedNumber, callStartTime);
+                    // save to prefs
+                    SharedPreferences.Editor e = sp.edit();
+                    e.putBoolean("on_call", true);
+                    e.apply();
                 }
                 else if(isIncoming){
                     onIncomingCallEnded(context, savedNumber, callStartTime, new Date());
+                    // save to prefs
+                    SharedPreferences.Editor e = sp.edit();
+                    e.putBoolean("on_call", true);
+                    e.apply();
                 }
                 else{
                     onOutgoingCallEnded(context, savedNumber, callStartTime, new Date());
+                    // save to prefs
+                    SharedPreferences.Editor e = sp.edit();
+                    e.putBoolean("on_call", false);
+                    e.apply();
                 }
                 break;
         }
