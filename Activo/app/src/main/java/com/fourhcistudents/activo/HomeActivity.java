@@ -45,25 +45,6 @@ public class HomeActivity extends ActionBarActivity{
                 promptSpeechInput();
             }
         });
-
-        // Notification listener handler
-        // TODO: Triggered by timer
-        View.OnClickListener handler = new View.OnClickListener(){
-            public void onClick(View v) {
-
-                switch (v.getId()) {
-
-                    case R.id.btnShowNotification:
-                        showNotification();
-                        break;
-                }
-            }
-        };
-
-        // we will set the listeners
-        findViewById(R.id.btnShowNotification).setOnClickListener(handler);
-        findViewById(R.id.btnCancelNotification).setOnClickListener(handler);
-
     }
 
 
@@ -185,7 +166,6 @@ public class HomeActivity extends ActionBarActivity{
             .setContentText("Here's an awesome exercise for you!")
             .setSmallIcon(R.drawable.activo_logo)
             .setContentIntent(pIntent)
-            .setSound(soundUri)
             .setPriority(Notification.PRIORITY_MAX) // Fix for showing addAction when it's connected to PC
             .build();
 } else {
@@ -194,6 +174,7 @@ public class HomeActivity extends ActionBarActivity{
             .setContentText("Here's an awesome exercise for you!")
             .setSmallIcon(R.drawable.activo_logo)
             .setContentIntent(pIntent)
+            .setSound(soundUri)
             .setPriority(Notification.PRIORITY_MAX) // Fix for showing addAction when it's connected to PC
             .build();
 }
