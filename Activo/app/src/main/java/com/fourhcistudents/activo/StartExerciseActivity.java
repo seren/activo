@@ -32,6 +32,7 @@ public class StartExerciseActivity extends ActionBarActivity {
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100;
+    private int audioLength = 0;
 
     private MediaPlayer mediaPlayer;
 
@@ -40,7 +41,7 @@ public class StartExerciseActivity extends ActionBarActivity {
     private Button previousButton;
     private Button playButton;
     private Button pauseButton;
-    private Button stopButton;
+    //private Button stopButton;
 
     // Images
     private ImageView image;
@@ -103,13 +104,14 @@ public class StartExerciseActivity extends ActionBarActivity {
         previousButton = (Button) findViewById(R.id.previous_btn);
         pauseButton = (Button) findViewById(R.id.pause_btn);
         playButton = (Button) findViewById(R.id.play_btn);
-        stopButton = (Button) findViewById(R.id.stop_btn);
+        //stopButton = (Button) findViewById(R.id.stop_btn);
 
         // First run
         if (count == 0) {
             previousButton.setVisibility(View.INVISIBLE);       // Hide previous button
-            pauseButton.setVisibility(View.INVISIBLE);          // Hide pause button
+            playButton.setVisibility(View.INVISIBLE);          // Hide play button
             mediaPlayer = MediaPlayer.create(this, R.raw.jump);   // Initial sound
+            mediaPlayer.start();
 
         }
 
@@ -146,12 +148,12 @@ public class StartExerciseActivity extends ActionBarActivity {
         });
 
         // STOP
-        stopButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exercise("stop");
-            }
-        });
+//        stopButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                exercise("stop");
+//            }
+//        });
 
     }
 
@@ -195,8 +197,6 @@ public class StartExerciseActivity extends ActionBarActivity {
     // Get the right sound to playback
     public void getSound() {
 
-        //TODO: real audio
-
         if (count == 0) {
             mediaPlayer = MediaPlayer.create(this, R.raw.jump);
         }
@@ -226,10 +226,10 @@ public class StartExerciseActivity extends ActionBarActivity {
             exercise("previous");
         } else if (firstWord.equals("play")) {
             exercise("play");
-        } else if (firstWord.equals("pause")) {
+        } else if (firstWord.equals("pause") || firstWord.equals("boss")) {
             exercise("pause");
-        } else if (firstWord.equals("stop")) {
-            exercise("stop");
+//        } else if (firstWord.equals("stop")) {
+//            exercise("stop");
         } else {
             System.out.println("--NOT RECOGNIZED--");
         }
@@ -287,25 +287,30 @@ public class StartExerciseActivity extends ActionBarActivity {
         } else if (s.equals("play")) {
             pauseButton.setVisibility(View.VISIBLE);
             playButton.setVisibility(View.INVISIBLE);
-            if (!isPaused) {
-                getSound();
-                mediaPlayer.start();
-            } else {
-                mediaPlayer.start();
-                isPaused = false;
+            if (!mediaPlayer.isPlaying()) { // Do this to ensure that you will not play more than once
+                if (!isPaused) {
+                    getSound();
+                    mediaPlayer.start();
+                } else {
+                    mediaPlayer.seekTo(audioLength);
+                    mediaPlayer.start();
+                    isPaused = false;
+                }
             }
         } else if (s.equals("pause")) {
             playButton.setVisibility(View.VISIBLE);
             pauseButton.setVisibility(View.INVISIBLE);
-            if (mediaPlayer.isPlaying())
+            if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
+                audioLength = mediaPlayer.getCurrentPosition();
+            }
             isPaused = true;
-        } else if (s.equals("stop")) {
-            playButton.setVisibility(View.VISIBLE);
-            pauseButton.setVisibility(View.INVISIBLE);
-            mediaPlayer.stop();
-            isPaused = false;
-        }
+        } //else if (s.equals("stop")) {
+//            playButton.setVisibility(View.VISIBLE);
+//            pauseButton.setVisibility(View.INVISIBLE);
+//            mediaPlayer.stop();
+//            isPaused = false;
+//        }
     }
 
     // Pop up when there's no more previous or next exercise

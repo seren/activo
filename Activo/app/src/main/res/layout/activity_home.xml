@@ -14,12 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/startButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/start_button"
-        android:onClick="startExercise"/>
-
+        android:onClick="startExercise"
+        android:layout_alignParentLeft="true" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -36,8 +34,6 @@
             android:id="@+id/textView1"
             android:layout_gravity="left"
             android:onClick="bodypart_view" />
-
-
 
     </LinearLayout>
 
@@ -80,8 +76,49 @@
             android:textOff="NO"
             android:id="@+id/oralswitch" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/micicon"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignTop="@+id/progressbar"
+            android:layout_alignRight="@+id/instructions" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btnShowNotification"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Notification"
+        android:layout_above="@+id/btnCancelNotification"
+        android:layout_alignParentLeft="true">
+    </Button>
+
+    <Button
+        android:id="@+id/btnCancelNotification"
+        android:layout_width="386dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel Notification"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true">
+    </Button>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
